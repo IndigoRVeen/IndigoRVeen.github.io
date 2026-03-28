@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Indigo Veen â Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:    #5c3d99;
+      --indigo-light: #7c58c4;
+      --indigo-dark:  #3b2466;
+      --accent:    #c084fc;
+      --accent2:   #f0abfc;
+      --bg:        #0f0a1e;
+      --bg2:       #1a1130;
+      --bg3:       #231845;
+      --text:      #f1eaff;
+      --text-muted:#b09cd6;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ââ NAV ââ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(15,10,30,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(192,132,252,0.15);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ââ HERO ââ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(124,88,196,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(192,132,252,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-avatar {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; font-weight: 900; color: white;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 0 4px var(--indigo-light), 0 0 40px rgba(192,132,252,0.5);
+      position: relative;
+      z-index: 1;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(192,132,252,0.15);
+      border: 1px solid rgba(192,132,252,0.35);
+      color: var(--accent);
+      padding: 0.3rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 60%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .badge {
+      background: var(--bg3);
+      border: 1px solid rgba(192,132,252,0.25);
+      border-radius: 999px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .btn {
+      padding: 0.75rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--indigo), var(--indigo-light));
+      color: white;
+      box-shadow: 0 4px 20px rgba(124,88,196,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124,88,196,0.55);
+    }
+    .btn-outline {
+      border: 1px solid rgba(192,132,252,0.4);
+      color: var(--accent);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: rgba(192,132,252,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ââ SECTIONS ââ */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: var(--white);
+    }
+
+    /* ââ STATS BAR ââ */
+    .stats-bar {
+      background: var(--bg2);
+      border-top: 1px solid rgba(192,132,252,0.1);
+      border-bottom: 1px solid rgba(192,132,252,0.1);
+      padding: 2.5rem 2rem;
+    }
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* ââ EXPERIENCE ââ */
+    #ervaring { background: var(--bg); }
+
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--indigo-light), var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      background: var(--bg2);
+      border: 1px solid rgba(192,132,252,0.12);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .timeline-item:hover {
+      border-color: rgba(192,132,252,0.35);
+      transform: translateX(4px);
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -2.6rem;
+      top: 1.6rem;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo-light), var(--accent));
+      box-shadow: 0 0 10px rgba(192,132,252,0.5);
+    }
+
+    .timeline-period {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .timeline-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .timeline-company {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .timeline-desc {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .current-badge {
+      display: inline-block;
+      background: rgba(192,132,252,0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+
+    /* ââ EDUCATION ââ */
+    #onderwijs { background: var(--bg2); }
+
+    .edu-grid { display: grid; gap: 1.5rem; }
+    .edu-card {
+      background: var(--bg3);
+      border: 1px solid rgba(192,132,252,0.15);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .edu-card:hover {
+      border-color: rgba(192,132,252,0.4);
+      transform: translateY(-3px);
+    }
+    .edu-icon {
+      width: 48px; height: 48px; min-width: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--indigo), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .edu-period {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+    }
+    .edu-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .edu-place { font-size: 0.88rem; color: var(--text-muted); }
+    .edu-desc {
+      margin-top: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ââ SKILLS ââ */
+    #sterktes { background: var(--bg); }
+
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    @media (max-width: 600px) { .skills-wrapper { grid-template-columns: 1fr; } }
+
+    .skills-group h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .pill {
+      background: var(--bg3);
+      border: 1px solid rgba(192,132,252,0.2);
+      color: var(--text);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .pill:hover {
+      background: rgba(192,132,252,0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .pill.lang { border-color: rgba(240,171,252,0.3); color: var(--accent2); }
+
+    /* ââ OVER MIJ ââ */
+    #over-mij { background: var(--bg2); }
+    .over-mij-text {
+      background: var(--bg3);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 16px 16px 0;
+      padding: 2rem;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+    .over-mij-text p { margin-bottom: 1rem; }
+    .over-mij-text p:last-child { margin-bottom: 0; }
+
+    /* ââ CONTACT ââ */
+    #contact {
+      background: linear-gradient(135deg, var(--indigo-dark) 0%, var(--bg) 100%);
+      text-align: center;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(192,132,252,0.2);
+      border-radius: 14px;
+      padding: 1.25rem 1.75rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.25s;
+      font-size: 0.9rem;
+    }
+    .contact-card:hover {
+      background: rgba(192,132,252,0.12);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .contact-card .icon { font-size: 1.3rem; }
+
+    /* ââ FOOTER ââ */
+    footer {
+      background: var(--bg);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(192,132,252,0.08);
+    }
+
+    /* ââ SCROLL ANIMATION ââ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">IV</div>
+    <ul class="nav-links">
+      <li><a href="#ervaring">Ervaring</a></li>
+      <li><a href="#onderwijs">Onderwijs</a></li>
+      <li><a href="#sterktes">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-avatar">IV</div>
+      <div class="hero-tag">Open voor nieuwe kansen</div>
+      <h1>Indigo Veen</h1>
+      <p class="hero-sub">
+        Intercedent bij 360Talent Â· Bedrijfskunde student Â·
+        Gedreven go-getter met een passie voor mensen en resultaten.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">ð´ Willemstad, CuraÃ§ao</span>
+        <span class="badge">ð Bedrijfskunde HBO</span>
+        <span class="badge">ð¼ Sales &amp; Recruitment</span>
+        <span class="badge">ð 4 Talen</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Neem contact op</a>
+        <a href="#ervaring" class="btn btn-outline">Bekijk mijn ervaring</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-number">4+</div>
+        <div class="stat-label">Jaar ervaring</div>
+      </div>
+      <div>
+        <div class="stat-number">5</div>
+        <div class="stat-label">Posities bekleed</div>
+      </div>
+      <div>
+        <div class="stat-number">4</div>
+        <div class="stat-label">Talen</div>
+      </div>
+      <div>
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Ambitie</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERVARING -->
+  <section id="ervaring">
+    <div class="container">
+      <div class="section-label">Loopbaan</div>
+      <div class="section-title">Werkervaring</div>
+      <div class="timeline">
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Februari 2026 â Heden</div>
+          <div class="timeline-role">
+            Intercedent
+            <span class="current-badge">Huidig</span>
+          </div>
+          <div class="timeline-company">360Talent Â· Willemstad, CuraÃ§ao</div>
+          <div class="timeline-desc">Actief als intercedent binnen de arbeidsmarkt op CuraÃ§ao. Bemiddelen van kandidaten naar de juiste werkgevers en vice versa.</div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Februari 2025 â December 2025</div>
+          <div class="timeline-role">(Sales)Consultant</div>
+          <div class="timeline-company">Vibe Group Â· Rotterdam</div>
+          <div class="timeline-desc">Actief als salesconsultant binnen de IT-recruitment sector. Verbinden van talent met de juiste organisaties.</div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Juni 2024 â Januari 2025</div>
+          <div class="timeline-role">Koerier &amp; Planner</div>
+          <div class="timeline-company">Pakkethelden Â· Rotterdam</div>
+          <div class="timeline-desc">Verantwoordelijk voor planning en uitvoering van logistieke processen. Combinatie van coÃ¶rdinatie en klantcontact.</div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Augustus 2023 â Juni 2024</div>
+          <div class="timeline-role">Verduurzamingsconsultant</div>
+          <div class="timeline-company">Power B.V.</div>
+          <div class="timeline-desc">Adviseerde klanten over verduurzamingsoplossingen. Combinatie van consultancy en commerciÃ«le vaardigheden.</div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Oktober 2022 â Augustus 2023</div>
+          <div class="timeline-role">Team Captain</div>
+          <div class="timeline-company">Metis Green Â· Rotterdam</div>
+          <div class="timeline-desc">Leidde een team van sales agents, verantwoordelijk voor coaching, begeleiding en het behalen van teamdoelen.</div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Mei 2022 â Oktober 2022</div>
+          <div class="timeline-role">Sales Agent</div>
+          <div class="timeline-company">Metis Green Â· Rotterdam</div>
+          <div class="timeline-desc">Begonnen als sales agent â de basis van mijn commerciÃ«le carriÃ¨re. Straatwerving voor goede doelen (proefdiervrij).</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ONDERWIJS -->
+  <section id="onderwijs">
+    <div class="container">
+      <div class="section-label">Opleiding</div>
+      <div class="section-title">Onderwijs</div>
+      <div class="edu-grid">
+
+        <div class="edu-card fade-in">
+          <div class="edu-icon">ð</div>
+          <div>
+            <div class="edu-period">September 2020 â Huidig</div>
+            <div class="edu-name">Bedrijfskunde HBO</div>
+            <div class="edu-place">Hogeschool van Rotterdam</div>
+            <div class="edu-desc">
+              Momenteel actief bezig met het afronden van de opleiding Bedrijfskunde.
+              Vanuit de hogeschool is goedkeuring gegeven voor het volgende traject â
+              op zoek naar een organisatie die dit kan faciliteren.
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-card fade-in">
+          <div class="edu-icon">ð«</div>
+          <div>
+            <div class="edu-period">Augustus 2013 â Juni 2018</div>
+            <div class="edu-name">HAVO/VWO</div>
+            <div class="edu-place">Radulphus College Â· CuraÃ§ao</div>
+            <div class="edu-desc">
+              Havo succesvol afgerond op het Radulphus College in CuraÃ§ao.
+              Een periode die de basis heeft gelegd voor mijn doorzettingsvermogen en internationale blik.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="sterktes">
+    <div class="container">
+      <div class="section-label">Competenties</div>
+      <div class="section-title">Talen &amp; Sterktes</div>
+      <div class="skills-wrapper">
+        <div class="skills-group">
+          <h3>ð Talen</h3>
+          <div class="pill-group">
+            <span class="pill lang">Nederlands (moedertaal)</span>
+            <span class="pill lang">Engels (vloeiend)</span>
+            <span class="pill lang">Papiaments (vloeiend)</span>
+            <span class="pill lang">Spaans (redelijk)</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <h3>â¡ Sterktes</h3>
+          <div class="pill-group">
+            <span class="pill">Leergierig</span>
+            <span class="pill">Snel reagerend</span>
+            <span class="pill">Ambitieus</span>
+            <span class="pill">Sociaal</span>
+            <span class="pill">Go-getter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVER MIJ -->
+  <section id="over-mij">
+    <div class="container">
+      <div class="section-label">Persoonlijk</div>
+      <div class="section-title">Over mij</div>
+      <div class="over-mij-text fade-in">
+        <p>
+          Mijn commerciÃ«le reis begon op straat â letterlijk. Als sales agent leerde ik wat het betekent om
+          vanuit overtuiging mensen te bewegen. Wat was goed? Wat kon beter? Die vragen drijven mij nog elke dag.
+        </p>
+        <p>
+          Ik ben iemand die eerlijk is over zijn traject: mijn CV is compact, maar elke stap was bewust.
+          Van sales agent naar team captain, van logistiek naar consultancy â ik zoek altijd de volgende uitdaging.
+        </p>
+        <p>
+          Opgegroeid op CuraÃ§ao, thuis in Rotterdam. Vier talen, Ã©Ã©n doel: impact maken.
+          Bel me gerust, en als je me niet te pakken krijgt â ik bel je terug. âï¸
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">Bereikbaar</div>
+      <div class="section-title">Neem contact op</div>
+      <p style="color: var(--text-muted); font-size: 1rem;">
+        Altijd in voor een goed gesprek. Stuur me een bericht of bel direct.
+      </p>
+      <div class="contact-grid">
+        <a href="tel:+31640784052" class="contact-card">
+          <span class="icon">ð</span>
+          <span>+31 6 40 78 40 52</span>
+        </a>
+        <a href="mailto:indigokooij@gmail.com" class="contact-card">
+          <span class="icon">âï¸</span>
+          <span>indigokooij@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/indigoveen0640784052/" target="_blank" class="contact-card">
+          <span class="icon">ð¼</span>
+          <span>LinkedIn Profiel</span>
+        </a>
+        <div class="contact-card">
+          <span class="icon">ð</span>
+          <span>Rotterdam, 3024NK</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Â© 2026 Indigo Veen Â· Rotterdam</p>
+  </footer>
+
+  <script>
+    // Scroll-in animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
