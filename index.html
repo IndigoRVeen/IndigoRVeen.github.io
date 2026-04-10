@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Indigo Veen ‚Äì Portfolio</title>
+  <title>Indigo Veen Curriculum Vitae</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
@@ -30,7 +30,7 @@
       line-height: 1.6;
     }
 
-    /* ‚îÄ‚îÄ NAV ‚îÄ‚îÄ */
+    /* -- NAV -- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: var(--dark);
@@ -57,7 +57,7 @@
     }
     nav ul li a:hover { color: var(--accent); }
 
-    /* ‚îÄ‚îÄ HERO ‚îÄ‚îÄ */
+    /* -- HERO -- */
     .hero {
       min-height: 100vh;
       background: var(--dark);
@@ -168,7 +168,7 @@
     }
     .stat-label { color: #888; font-size: .75rem; margin-top: .25rem; }
 
-    /* ‚îÄ‚îÄ SECTION SHARED ‚îÄ‚îÄ */
+    /* -- SECTION SHARED -- */
     section { padding: 5rem 2rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-label {
@@ -193,7 +193,7 @@
       margin-bottom: 2.5rem;
     }
 
-    /* ‚îÄ‚îÄ PROPOSITIE ‚îÄ‚îÄ */
+    /* -- PROPOSITIE -- */
     #propositie {
       background: var(--dark);
       position: relative;
@@ -284,7 +284,7 @@
     }
     .ncnp-banner p { color: #bbb; font-size: .9rem; }
 
-    /* ‚îÄ‚îÄ ERVARING ‚îÄ‚îÄ */
+    /* -- ERVARING -- */
     #ervaring { background: var(--light); }
     .timeline { position: relative; padding-left: 2rem; }
     .timeline::before {
@@ -343,7 +343,7 @@
       vertical-align: middle;
     }
 
-    /* ‚îÄ‚îÄ ONDERWIJS ‚îÄ‚îÄ */
+    /* -- ONDERWIJS -- */
     #onderwijs { background: #eef0eb; }
     .edu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .edu-card {
@@ -359,7 +359,7 @@
     .edu-school { color: var(--gray); font-size: .875rem; margin-bottom: .6rem; }
     .edu-desc { color: #555; font-size: .875rem; line-height: 1.6; }
 
-    /* ‚îÄ‚îÄ SKILLS ‚îÄ‚îÄ */
+    /* -- SKILLS -- */
     #sterktes { background: var(--light); }
     .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
     .skills-block h3 { font-weight: 700; font-size: 1rem; margin-bottom: 1rem; color: var(--dark); }
@@ -383,7 +383,7 @@
     }
     .strength-tag:hover { border-color: var(--turq); color: var(--turq); }
 
-    /* ‚îÄ‚îÄ OVER MIJ ‚îÄ‚îÄ */
+    /* -- OVER MIJ -- */
     #over {
       background: var(--dark);
       position: relative; overflow: hidden;
@@ -421,7 +421,7 @@
     .about-fact-icon { font-size: 1.2rem; }
     .about-fact-text { color: #ccc; font-size: .875rem; }
 
-    /* ‚îÄ‚îÄ CONTACT ‚îÄ‚îÄ */
+    /* -- CONTACT -- */
     #contact { background: var(--light); }
     .contact-cards {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -447,7 +447,7 @@
     .contact-label { font-size: .7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--turq); margin-bottom: .3rem; }
     .contact-value { font-size: .875rem; color: var(--gray); }
 
-    /* ‚îÄ‚îÄ FOOTER ‚îÄ‚îÄ */
+    /* -- FOOTER -- */
     footer {
       background: var(--dark);
       color: #666;
@@ -458,7 +458,7 @@
     }
     footer span { color: var(--accent); }
 
-    /* ‚îÄ‚îÄ ANIMATIONS ‚îÄ‚îÄ */
+    /* -- ANIMATIONS -- */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(32px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -487,7 +487,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Hero entrance ‚Äì staggered */
+    /* Hero entrance &ndash; staggered */
     .hero-badge  { opacity: 0; animation: badgePop .55s ease .1s forwards; }
     .hero h1     { opacity: 0; animation: fadeInUp .6s ease .25s forwards; }
     .hero-sub    { opacity: 0; animation: fadeInUp .6s ease .4s  forwards; }
@@ -553,7 +553,7 @@
       animation: fadeInUp .6s ease .25s forwards, shimmerGradient 4s ease infinite 1s;
     }
 
-    /* ‚îÄ‚îÄ RESPONSIVE ‚îÄ‚îÄ */
+    /* -- RESPONSIVE -- */
     @media (max-width: 768px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
       .hero-photo-wrap { display: none; }
@@ -589,14 +589,14 @@
       <div class="hero-badge">Open voor nieuwe kansen</div>
       <h1>Indigo <span>Veen</span></h1>
       <p class="hero-sub">
-        Bedrijfskundig adviseur &amp; intercedent. Opgegroeid op Cura√ßao, gevormd in Nederland.
+        Bedrijfskundig adviseur &amp; intercedent. Opgegroeid op Cura&ccedil;ao, gevormd in Nederland.
         Gedreven door het leggen van verbanden die anderen missen.
       </p>
       <div class="hero-tags">
-        <span class="hero-tag">üå¥ Willemstad, Cura√ßao</span>
-        <span class="hero-tag">üéì Bedrijfskunde HBO</span>
-        <span class="hero-tag">üíº Sales &amp; Advies</span>
-        <span class="hero-tag">üåç 4 Talen</span>
+        <span class="hero-tag">&#127796; Willemstad, Cura&ccedil;ao</span>
+        <span class="hero-tag">&#127891; Bedrijfskunde HBO</span>
+        <span class="hero-tag">&#128188; Sales &amp; Advies</span>
+        <span class="hero-tag">&#127757; 4 Talen</span>
       </div>
       <div class="hero-buttons">
         <a href="#propositie" class="btn btn-primary">Bekijk mijn diensten</a>
@@ -619,10 +619,10 @@
 <section id="propositie">
   <div class="section-inner prop-inner">
     <div class="section-label">Wat ik doe</div>
-    <h2 class="section-title light">Mijn diensten voor Cura√ßao</h2>
+    <h2 class="section-title light">Mijn diensten voor Cura&ccedil;ao</h2>
     <div class="section-divider"></div>
     <p class="prop-intro">
-      Veel toerisme- en MKB-bedrijven op Cura√ßao laten kansen liggen zonder het te weten.
+      Veel toerisme- en MKB-bedrijven op Cura&ccedil;ao laten kansen liggen zonder het te weten.
       Te druk met de dagelijkse operatie, geen tijd voor het grotere plaatje.
       Ik kom binnen, kijk met frisse ogen, en lever een concreet resultaat.
       Geen grote verhalen, geen open einde. Gewoon wat werkt.
@@ -654,10 +654,10 @@
     </div>
 
     <div class="ncnp-banner">
-      <div class="ncnp-icon">ü§ù</div>
+      <div class="ncnp-icon">&#129309;</div>
       <div>
         <h3>No cure, no pay.</h3>
-        <p>Geen resultaat? Dan betaal je niets. Ik werk alleen aan opdrachten waar ik vertrouwen in heb ‚Äî en dat vertrouwen geef ik jou terug als garantie.</p>
+        <p>Geen resultaat? Dan betaal je niets. Ik werk alleen aan opdrachten waar ik vertrouwen in heb &mdash; en dat vertrouwen geef ik jou terug als garantie.</p>
       </div>
     </div>
   </div>
@@ -672,45 +672,45 @@
     <div class="timeline">
 
       <div class="tl-item">
-        <div class="tl-date">Februari 2026 ‚Äì Heden</div>
+        <div class="tl-date">Februari 2026 &ndash; Heden</div>
         <div class="tl-title">Intercedent <span class="tl-badge">Huidig</span></div>
-        <div class="tl-company">360Talent ¬∑ Willemstad, Cura√ßao</div>
-        <div class="tl-desc">Actief als intercedent binnen de arbeidsmarkt op Cura√ßao. Bemiddelen van kandidaten naar de juiste werkgevers en vice versa.</div>
+        <div class="tl-company">360Talent &middot; Willemstad, Cura&ccedil;ao</div>
+        <div class="tl-desc">Actief als intercedent binnen de arbeidsmarkt op Cura&ccedil;ao. Bemiddelen van kandidaten naar de juiste werkgevers en vice versa.</div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">Februari 2025 ‚Äì December 2025</div>
+        <div class="tl-date">Februari 2025 &ndash; December 2025</div>
         <div class="tl-title">(Sales)Consultant</div>
-        <div class="tl-company">Vibe Group ¬∑ Rotterdam</div>
+        <div class="tl-company">Vibe Group &middot; Rotterdam</div>
         <div class="tl-desc">Actief als salesconsultant binnen de IT-recruitment sector. Verbinden van talent met de juiste organisaties.</div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">Juni 2024 ‚Äì Januari 2025</div>
+        <div class="tl-date">Juni 2024 &ndash; Januari 2025</div>
         <div class="tl-title">Koerier &amp; Planner</div>
-        <div class="tl-company">Pakkethelden ¬∑ Rotterdam</div>
-        <div class="tl-desc">Verantwoordelijk voor planning en uitvoering van logistieke processen. Combinatie van co√∂rdinatie en klantcontact.</div>
+        <div class="tl-company">Pakkethelden &middot; Rotterdam</div>
+        <div class="tl-desc">Verantwoordelijk voor planning en uitvoering van logistieke processen. Combinatie van co&ouml;rdinatie en klantcontact.</div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">Augustus 2023 ‚Äì Juni 2024</div>
+        <div class="tl-date">Augustus 2023 &ndash; Juni 2024</div>
         <div class="tl-title">Verduurzamingsconsultant</div>
         <div class="tl-company">Power B.V.</div>
-        <div class="tl-desc">Adviseerde klanten over verduurzamingsoplossingen. Combinatie van consultancy en commerci√´le vaardigheden.</div>
+        <div class="tl-desc">Adviseerde klanten over verduurzamingsoplossingen. Combinatie van consultancy en commerci&euml;le vaardigheden.</div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">Oktober 2022 ‚Äì Augustus 2023</div>
+        <div class="tl-date">Oktober 2022 &ndash; Augustus 2023</div>
         <div class="tl-title">Team Captain</div>
-        <div class="tl-company">Metis Green ¬∑ Rotterdam</div>
+        <div class="tl-company">Metis Green &middot; Rotterdam</div>
         <div class="tl-desc">Leidde een team van sales agents, verantwoordelijk voor coaching, begeleiding en het behalen van teamdoelen.</div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">Mei 2022 ‚Äì Oktober 2022</div>
+        <div class="tl-date">Mei 2022 &ndash; Oktober 2022</div>
         <div class="tl-title">Sales Agent</div>
-        <div class="tl-company">Metis Green ¬∑ Rotterdam</div>
-        <div class="tl-desc">Begonnen als sales agent ‚Äî de basis van mijn commerci√´le carri√®re. Straatwerving voor goede doelen.</div>
+        <div class="tl-company">Metis Green &middot; Rotterdam</div>
+        <div class="tl-desc">Begonnen als sales agent &mdash; de basis van mijn commerci&euml;le carri&egrave;re. Straatwerving voor goede doelen.</div>
       </div>
 
     </div>
@@ -725,18 +725,18 @@
     <div class="section-divider"></div>
     <div class="edu-cards">
       <div class="edu-card">
-        <div class="edu-icon">üéì</div>
-        <div class="edu-period">September 2020 ‚Äì Heden</div>
+        <div class="edu-icon">&#127891;</div>
+        <div class="edu-period">September 2020 &ndash; Heden</div>
         <div class="edu-title">Bedrijfskunde HBO</div>
         <div class="edu-school">Hogeschool van Rotterdam</div>
         <div class="edu-desc">Momenteel actief bezig met het afronden van de opleiding Bedrijfskunde. Vanuit de hogeschool is goedkeuring gegeven voor het volgende traject.</div>
       </div>
       <div class="edu-card">
-        <div class="edu-icon">üè´</div>
-        <div class="edu-period">Augustus 2013 ‚Äì Juni 2018</div>
+        <div class="edu-icon">&#127979;</div>
+        <div class="edu-period">Augustus 2013 &ndash; Juni 2018</div>
         <div class="edu-title">HAVO/VWO</div>
-        <div class="edu-school">Radulphus College ¬∑ Cura√ßao</div>
-        <div class="edu-desc">Havo succesvol afgerond op het Radulphus College in Cura√ßao. Een periode die de basis heeft gelegd voor mijn doorzettingsvermogen en internationale blik.</div>
+        <div class="edu-school">Radulphus College &middot; Cura&ccedil;ao</div>
+        <div class="edu-desc">Havo succesvol afgerond op het Radulphus College in Cura&ccedil;ao. Een periode die de basis heeft gelegd voor mijn doorzettingsvermogen en internationale blik.</div>
       </div>
     </div>
   </div>
@@ -750,7 +750,7 @@
     <div class="section-divider"></div>
     <div class="skills-grid">
       <div class="skills-block">
-        <h3>üåç Talen</h3>
+        <h3>&#127757; Talen</h3>
         <div class="lang-item">
           <span class="lang-name">Nederlands</span>
           <div class="lang-bar-wrap"><div class="lang-bar" style="width:100%"></div></div>
@@ -769,7 +769,7 @@
         </div>
       </div>
       <div class="skills-block">
-        <h3>‚ö° Sterktes</h3>
+        <h3>&#9889; Sterktes</h3>
         <div class="strength-tags">
           <span class="strength-tag">Verbanden leggen</span>
           <span class="strength-tag">Communicatie</span>
@@ -793,19 +793,19 @@
     <div class="section-divider"></div>
     <div class="about-grid">
       <div>
-        <p class="about-highlight">"Opgegroeid op Cura√ßao, thuis in Rotterdam. Vier talen, √©√©n doel: impact maken."</p>
+        <p class="about-highlight">"Opgegroeid op Cura&ccedil;ao, thuis in Rotterdam. Vier talen, &eacute;&eacute;n doel: impact maken."</p>
         <div class="about-text">
-          <p>Mijn commerci√´le reis begon op straat ‚Äî letterlijk. Als sales agent leerde ik wat het betekent om vanuit overtuiging mensen te bewegen. Wat was goed? Wat kon beter? Die vragen drijven mij nog elke dag.</p>
-          <p>Ik ben iemand die eerlijk is over zijn traject: mijn CV is compact, maar elke stap was bewust. Van sales agent naar team captain, van logistiek naar consultancy ‚Äî ik zoek altijd de volgende uitdaging.</p>
-          <p>Bel me gerust, en als je me niet te pakken krijgt ‚Äî ik bel je terug. ‚úåÔ∏è</p>
+          <p>Mijn commerci&euml;le reis begon op straat &mdash; letterlijk. Als sales agent leerde ik wat het betekent om vanuit overtuiging mensen te bewegen. Wat was goed? Wat kon beter? Die vragen drijven mij nog elke dag.</p>
+          <p>Ik ben iemand die eerlijk is over zijn traject: mijn CV is compact, maar elke stap was bewust. Van sales agent naar team captain, van logistiek naar consultancy &mdash; ik zoek altijd de volgende uitdaging.</p>
+          <p>Bel me gerust, en als je me niet te pakken krijgt &mdash; ik bel je terug. &#9996;</p>
         </div>
       </div>
       <div class="about-facts">
-        <div class="about-fact"><span class="about-fact-icon">üå¥</span><span class="about-fact-text">Opgegroeid op Cura√ßao, verhuisd naar Nederland in 2019</span></div>
-        <div class="about-fact"><span class="about-fact-icon">üîç</span><span class="about-fact-text">Sterk in het leggen van verbanden die anderen missen</span></div>
-        <div class="about-fact"><span class="about-fact-icon">ü§ù</span><span class="about-fact-text">Gericht op toerisme en MKB op Cura√ßao</span></div>
-        <div class="about-fact"><span class="about-fact-icon">üí°</span><span class="about-fact-text">Bedrijfskundig onderlegd, commercieel ingesteld</span></div>
-        <div class="about-fact"><span class="about-fact-icon">üìç</span><span class="about-fact-text">Werkt locatieonafhankelijk vanuit Cura√ßao</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#127796;</span><span class="about-fact-text">Opgegroeid op Cura&ccedil;ao, verhuisd naar Nederland in 2019</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#128269;</span><span class="about-fact-text">Sterk in het leggen van verbanden die anderen missen</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#129309;</span><span class="about-fact-text">Gericht op toerisme en MKB op Cura&ccedil;ao</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#128161;</span><span class="about-fact-text">Bedrijfskundig onderlegd, commercieel ingesteld</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#128205;</span><span class="about-fact-text">Werkt locatieonafhankelijk vanuit Cura&ccedil;ao</span></div>
       </div>
     </div>
   </div>
@@ -820,17 +820,17 @@
     <p style="color:var(--gray);margin-bottom:2rem;font-size:.95rem;">Altijd in voor een goed gesprek. Stuur me een bericht of bel direct.</p>
     <div class="contact-cards">
       <a href="tel:+31640784052" class="contact-card">
-        <div class="contact-icon">üìû</div>
+        <div class="contact-icon">&#128222;</div>
         <div class="contact-label">Telefoon</div>
         <div class="contact-value">+31 6 40 78 40 52</div>
       </a>
       <a href="mailto:indigokooij@gmail.com" class="contact-card">
-        <div class="contact-icon">‚úâÔ∏è</div>
+        <div class="contact-icon">&#9993;</div>
         <div class="contact-label">E-mail</div>
         <div class="contact-value">indigokooij@gmail.com</div>
       </a>
       <a href="https://www.linkedin.com/in/indigoveen0640784052/" target="_blank" class="contact-card">
-        <div class="contact-icon">üíº</div>
+        <div class="contact-icon">&#128188;</div>
         <div class="contact-label">LinkedIn</div>
         <div class="contact-value">Bekijk mijn profiel</div>
       </a>
@@ -839,11 +839,11 @@
 </section>
 
 <footer>
-  ¬© 2026 <span>Indigo Veen</span> ¬∑ Cura√ßao
+  &copy; 2026 <span>Indigo Veen</span> &middot; Cura&ccedil;ao
 </footer>
 
 <script>
-  /* ‚îÄ‚îÄ Scroll-reveal with IntersectionObserver ‚îÄ‚îÄ */
+  /* -- Scroll-reveal with IntersectionObserver -- */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -871,7 +871,7 @@
     observer.observe(el);
   });
 
-  /* ‚îÄ‚îÄ Language bar animation ‚îÄ‚îÄ */
+  /* -- Language bar animation -- */
   const langBars = document.querySelectorAll('.lang-bar');
   // Store target widths and reset to 0
   langBars.forEach(bar => {
@@ -892,7 +892,7 @@
   const skillsSection = document.querySelector('#sterktes');
   if (skillsSection) langObserver.observe(skillsSection);
 
-  /* ‚îÄ‚îÄ Stats counter animation ‚îÄ‚îÄ */
+  /* -- Stats counter animation -- */
   function animateCounter(el, target, suffix, duration) {
     let start = 0;
     const isPlus = suffix.includes('+');
@@ -927,7 +927,7 @@
   const heroStats = document.querySelector('.hero-stats');
   if (heroStats) statsObserver.observe(heroStats);
 
-  /* ‚îÄ‚îÄ Prop cards stagger ‚îÄ‚îÄ */
+  /* -- Prop cards stagger -- */
   document.querySelectorAll('.prop-cards').forEach(wrapper => {
     wrapper.classList.add('stagger');
   });
