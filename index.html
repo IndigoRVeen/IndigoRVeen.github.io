@@ -57,6 +57,1089 @@
     }
     nav ul li a:hover { color: var(--accent); }
 
+    /* -- STARFIELD CANVAS -- */
+    .starfield {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* -- HERO -- */
+    .hero {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(0,123,138,.18) 0%, transparent 65%);
+    }
+    .hero-inner {
+      max-width: 1100px; width: 100%;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: center;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232,168,56,.15);
+      color: var(--accent);
+      border: 1px solid rgba(232,168,56,.35);
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: .9rem;
+    }
+    .hero h1 span { color: var(--turq-lt); }
+    .hero-sub {
+      color: #aaa;
+      font-size: 1.05rem;
+      margin-bottom: 1.8rem;
+      max-width: 520px;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      margin-bottom: 2rem;
+    }
+    .hero-tag {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #ccc;
+      border-radius: 999px;
+      font-size: .8rem;
+      padding: .3rem .8rem;
+    }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: .75rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--turq); color: var(--white); }
+    .btn-primary:hover { background: var(--turq-lt); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,.25);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .hero-photo {
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--turq);
+      box-shadow: 0 0 0 8px rgba(0,123,138,.15);
+    }
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .stat {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: .9rem 1.1rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label { color: #888; font-size: .75rem; margin-top: .25rem; }
+
+    /* -- SECTION SHARED -- */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .section-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--turq);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .section-title.light { color: var(--white); }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* -- PROPOSITIE -- */
+    #propositie {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #propositie::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(0,123,138,.15) 0%, transparent 60%);
+    }
+    .prop-inner { position: relative; }
+    .prop-intro {
+      color: #bbb;
+      font-size: 1.05rem;
+      max-width: 640px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    .prop-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .prop-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(0,123,138,.35);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .prop-card:hover {
+      border-color: var(--turq-lt);
+      transform: translateY(-3px);
+    }
+    .prop-card-letter {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      background: var(--turq);
+      color: var(--white);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .prop-card h3 {
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .7rem;
+    }
+    .prop-card p {
+      color: #aaa;
+      font-size: .9rem;
+      line-height: 1.65;
+    }
+    .prop-card .result-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      background: rgba(232,168,56,.12);
+      color: var(--accent);
+      border: 1px solid rgba(232,168,56,.3);
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .3rem .8rem;
+    }
+
+    .ncnp-banner {
+      background: rgba(232,168,56,.1);
+      border: 1px solid rgba(232,168,56,.3);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .ncnp-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .ncnp-banner h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: .2rem;
+    }
+    .ncnp-banner p { color: #bbb; font-size: .9rem; }
+
+    /* -- ERVARING -- */
+    #ervaring { background: var(--light); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 6px; bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--turq), rgba(0,123,138,.1));
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 2rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      border-left: 3px solid transparent;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .tl-item:hover {
+      border-left-color: var(--turq);
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -2.45rem; top: 1.6rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--turq);
+      border: 2px solid var(--light);
+    }
+    .tl-date {
+      font-size: .75rem;
+      color: var(--turq);
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+    .tl-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: .15rem;
+    }
+    .tl-company { color: var(--gray); font-size: .875rem; margin-bottom: .6rem; }
+    .tl-desc { color: #555; font-size: .875rem; line-height: 1.6; }
+    .tl-badge {
+      display: inline-block;
+      background: rgba(0,123,138,.1);
+      color: var(--turq);
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      margin-left: .5rem;
+      vertical-align: middle;
+    }
+
+    /* -- ONDERWIJS -- */
+    #onderwijs { background: #eef0eb; }
+    .edu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .edu-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 1.8rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      border-top: 3px solid var(--turq);
+    }
+    .edu-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+    .edu-period { font-size: .75rem; color: var(--turq); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .edu-title { font-weight: 700; font-size: 1rem; margin: .3rem 0 .1rem; }
+    .edu-school { color: var(--gray); font-size: .875rem; margin-bottom: .6rem; }
+    .edu-desc { color: #555; font-size: .875rem; line-height: 1.6; }
+
+    /* -- SKILLS -- */
+    #sterktes { background: var(--light); }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .skills-block h3 { font-weight: 700; font-size: 1rem; margin-bottom: 1rem; color: var(--dark); }
+    .lang-item {
+      display: flex; align-items: center; gap: .8rem;
+      margin-bottom: .7rem;
+    }
+    .lang-name { width: 100px; font-size: .875rem; font-weight: 500; }
+    .lang-bar-wrap { flex: 1; height: 6px; background: #ddd; border-radius: 3px; }
+    .lang-bar { height: 100%; border-radius: 3px; background: var(--turq); }
+    .strength-tags { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .strength-tag {
+      background: var(--white);
+      border: 1.5px solid rgba(0,123,138,.25);
+      color: var(--dark);
+      border-radius: 8px;
+      padding: .5rem 1rem;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .strength-tag:hover { border-color: var(--turq); color: var(--turq); }
+
+    /* -- OVER MIJ -- */
+    #over {
+      background: var(--dark);
+      position: relative; overflow: hidden;
+    }
+    #over::after {
+      content: '';
+      position: absolute; bottom: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(0,123,138,.1);
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: start;
+    }
+    .about-text { color: #bbb; line-height: 1.8; font-size: .95rem; }
+    .about-text p + p { margin-top: 1rem; }
+    .about-highlight {
+      color: var(--white);
+      font-size: 1.25rem;
+      font-family: 'Playfair Display', serif;
+      line-height: 1.5;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-facts { display: flex; flex-direction: column; gap: 1rem; }
+    .about-fact {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .about-fact-icon { font-size: 1.2rem; }
+    .about-fact-text { color: #ccc; font-size: .875rem; }
+
+    /* -- CONTACT -- */
+    #contact { background: var(--light); }
+    .contact-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    .contact-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.6rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--dark);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+    }
+    .contact-card:hover {
+      border-bottom-color: var(--turq);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    }
+    .contact-icon { font-size: 1.8rem; margin-bottom: .6rem; }
+    .contact-label { font-size: .7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--turq); margin-bottom: .3rem; }
+    .contact-value { font-size: .875rem; color: var(--gray); }
+
+    /* -- FOOTER -- */
+    footer {
+      background: var(--dark);
+      color: #666;
+      text-align: center;
+      padding: 1.8rem;
+      font-size: .8rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    footer span { color: var(--accent); }
+
+    /* -- ANIMATIONS -- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-32px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes floatPhoto {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes pulseRing {
+      0%   { box-shadow: 0 0 0 0 rgba(0,123,138,.45), 0 0 0 8px rgba(0,123,138,.12); }
+      70%  { box-shadow: 0 0 0 18px rgba(0,123,138,0), 0 0 0 8px rgba(0,123,138,.12); }
+      100% { box-shadow: 0 0 0 0 rgba(0,123,138,0), 0 0 0 8px rgba(0,123,138,.12); }
+    }
+    @keyframes badgePop {
+      0%   { opacity: 0; transform: scale(.8) translateY(8px); }
+      60%  { transform: scale(1.06) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes shimmerGradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Hero entrance &ndash; staggered */
+    .hero-badge  { opacity: 0; animation: badgePop .55s ease .1s forwards; }
+    .hero h1     { opacity: 0; animation: fadeInUp .6s ease .25s forwards; }
+    .hero-sub    { opacity: 0; animation: fadeInUp .6s ease .4s  forwards; }
+    .hero-tags   { opacity: 0; animation: fadeInUp .6s ease .55s forwards; }
+    .hero-buttons{ opacity: 0; animation: fadeInUp .6s ease .7s  forwards; }
+    .hero-stats  { opacity: 0; animation: fadeInUp .6s ease .85s forwards; }
+
+    /* Floating photo */
+    .hero-photo {
+      animation: floatPhoto 4s ease-in-out infinite, pulseRing 2.8s ease-out infinite;
+    }
+
+    /* Scroll-reveal base */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children inside .stagger parent */
+    .stagger > .reveal:nth-child(1) { transition-delay: .05s; }
+    .stagger > .reveal:nth-child(2) { transition-delay: .18s; }
+    .stagger > .reveal:nth-child(3) { transition-delay: .31s; }
+    .stagger > .reveal:nth-child(4) { transition-delay: .44s; }
+    .stagger > .reveal:nth-child(5) { transition-delay: .57s; }
+    .stagger > .reveal:nth-child(6) { transition-delay: .70s; }
+
+    /* Timeline slide-in from left */
+    .tl-item {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .tl-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Language bar fill transition */
+    .lang-bar {
+      transition: width 1.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    /* Section heading animated underline */
+    .section-divider {
+      transition: width .8s ease;
+    }
+    .section-divider.animated {
+      width: 48px; /* already set, but re-fires transition */
+    }
+
+    /* Animated hero accent gradient on name */
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--turq-lt), var(--accent), var(--turq-lt));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp .6s ease .25s forwards, shimmerGradient 4s ease infinite 1s;
+    }
+
+    /* -- RESPONSIVE -- */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-photo-wrap { display: none; }
+      .hero-tags { justify-content: center; }
+      .hero-buttons { justify-content: center; }
+      .prop-cards { grid-template-columns: 1fr; }
+      .edu-cards { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-cards { grid-template-columns: 1fr; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">I<span>V</span></div>
+  <ul>
+    <li><a href="#propositie">Diensten</a></li>
+    <li><a href="#ervaring">Ervaring</a></li>
+    <li><a href="#onderwijs">Onderwijs</a></li>
+    <li><a href="#sterktes">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <canvas class="starfield" id="stars-hero"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">Open voor nieuwe kansen</div>
+      <h1>Indigo <span>Veen</span></h1>
+      <p class="hero-sub">
+        Bedrijfskundig adviseur &amp; intercedent. Opgegroeid op Cura&ccedil;ao, gevormd in Nederland.
+        Gedreven door het leggen van verbanden die anderen missen.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag">&#127796; Willemstad, Cura&ccedil;ao</span>
+        <span class="hero-tag">&#127891; Bedrijfskunde HBO</span>
+        <span class="hero-tag">&#128188; Sales &amp; Advies</span>
+        <span class="hero-tag">&#127757; 4 Talen</span>
+      </div>
+      <div class="hero-buttons">
+        <a href="#propositie" class="btn btn-primary">Bekijk mijn diensten</a>
+        <a href="#contact" class="btn btn-outline">Neem contact op</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img src="Indigo Veen.jpg" alt="Indigo Veen" class="hero-photo" />
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Jaar ervaring</div></div>
+        <div class="stat"><div class="stat-num">5</div><div class="stat-label">Posities</div></div>
+        <div class="stat"><div class="stat-num">4</div><div class="stat-label">Talen</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Ambitie</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPOSITIE -->
+<section id="propositie">
+  <canvas class="starfield" id="stars-prop"></canvas>
+  <div class="section-inner prop-inner">
+    <div class="section-label">Wat ik doe</div>
+    <h2 class="section-title light">Mijn diensten voor Cura&ccedil;ao</h2>
+    <div class="section-divider"></div>
+    <p class="prop-intro">
+      Veel toerisme- en MKB-bedrijven op Cura&ccedil;ao laten kansen liggen zonder het te weten.
+      Te druk met de dagelijkse operatie, geen tijd voor het grotere plaatje.
+      Ik kom binnen, kijk met frisse ogen, en lever een concreet resultaat.
+      Geen grote verhalen, geen open einde. Gewoon wat werkt.
+    </p>
+
+    <div class="prop-cards">
+      <div class="prop-card">
+        <div class="prop-card-letter">A</div>
+        <h3>Bedrijfsdoorlichting</h3>
+        <p>
+          Ik breng in kaart waar jouw bedrijf geld of klanten laat liggen.
+          Processen, communicatie, positionering en zichtbaarheid worden
+          onder de loep genomen. Je ontvangt een helder rapport met
+          concrete, direct toepasbare aanbevelingen.
+        </p>
+        <span class="result-tag">Resultaat: je weet precies waar de lek zit</span>
+      </div>
+      <div class="prop-card">
+        <div class="prop-card-letter">B</div>
+        <h3>Zichtbaarheid &amp; verhaal</h3>
+        <p>
+          Ik help je om je aanbod scherper te positioneren en beter
+          vindbaar te maken voor jouw doelgroep. Lokale klanten en
+          toeristen begrijpen meteen wat jij te bieden hebt.
+          Van online aanwezigheid tot hoe je jezelf omschrijft.
+        </p>
+        <span class="result-tag">Resultaat: meer aanvragen, duidelijker verhaal</span>
+      </div>
+    </div>
+
+    <div class="ncnp-banner">
+      <div class="ncnp-icon">&#129309;</div>
+      <div>
+        <h3>No cure, no pay.</h3>
+        <p>Geen resultaat? Dan betaal je niets. Ik werk alleen aan opdrachten waar ik vertrouwen in heb &mdash; en dat vertrouwen geef ik jou terug als garantie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ERVARING -->
+<section id="ervaring">
+  <div class="section-inner">
+    <div class="section-label">Loopbaan</div>
+    <h2 class="section-title">Werkervaring</h2>
+    <div class="section-divider"></div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-date">Februari 2026 &ndash; Heden</div>
+        <div class="tl-title">Intercedent <span class="tl-badge">Huidig</span></div>
+        <div class="tl-company">360Talent &middot; Willemstad, Cura&ccedil;ao</div>
+        <div class="tl-desc">Actief als intercedent binnen de arbeidsmarkt op Cura&ccedil;ao. Bemiddelen van kandidaten naar de juiste werkgevers en vice versa.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Februari 2025 &ndash; December 2025</div>
+        <div class="tl-title">(Sales)Consultant</div>
+        <div class="tl-company">Vibe Group &middot; Rotterdam</div>
+        <div class="tl-desc">Actief als salesconsultant binnen de IT-recruitment sector. Verbinden van talent met de juiste organisaties.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Juni 2024 &ndash; Januari 2025</div>
+        <div class="tl-title">Koerier &amp; Planner</div>
+        <div class="tl-company">Pakkethelden &middot; Rotterdam</div>
+        <div class="tl-desc">Verantwoordelijk voor planning en uitvoering van logistieke processen. Combinatie van co&ouml;rdinatie en klantcontact.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Augustus 2023 &ndash; Juni 2024</div>
+        <div class="tl-title">Verduurzamingsconsultant</div>
+        <div class="tl-company">Power B.V.</div>
+        <div class="tl-desc">Adviseerde klanten over verduurzamingsoplossingen. Combinatie van consultancy en commerci&euml;le vaardigheden.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Oktober 2022 &ndash; Augustus 2023</div>
+        <div class="tl-title">Team Captain</div>
+        <div class="tl-company">Metis Green &middot; Rotterdam</div>
+        <div class="tl-desc">Leidde een team van sales agents, verantwoordelijk voor coaching, begeleiding en het behalen van teamdoelen.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Mei 2022 &ndash; Oktober 2022</div>
+        <div class="tl-title">Sales Agent</div>
+        <div class="tl-company">Metis Green &middot; Rotterdam</div>
+        <div class="tl-desc">Begonnen als sales agent &mdash; de basis van mijn commerci&euml;le carri&egrave;re. Straatwerving voor goede doelen.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ONDERWIJS -->
+<section id="onderwijs">
+  <div class="section-inner">
+    <div class="section-label">Opleiding</div>
+    <h2 class="section-title">Onderwijs</h2>
+    <div class="section-divider"></div>
+    <div class="edu-cards">
+      <div class="edu-card">
+        <div class="edu-icon">&#127891;</div>
+        <div class="edu-period">September 2020 &ndash; Heden</div>
+        <div class="edu-title">Bedrijfskunde HBO</div>
+        <div class="edu-school">Hogeschool van Rotterdam</div>
+        <div class="edu-desc">Momenteel actief bezig met het afronden van de opleiding Bedrijfskunde. Vanuit de hogeschool is goedkeuring gegeven voor het volgende traject.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon">&#127979;</div>
+        <div class="edu-period">Augustus 2013 &ndash; Juni 2018</div>
+        <div class="edu-title">HAVO/VWO</div>
+        <div class="edu-school">Radulphus College &middot; Cura&ccedil;ao</div>
+        <div class="edu-desc">Havo succesvol afgerond op het Radulphus College in Cura&ccedil;ao. Een periode die de basis heeft gelegd voor mijn doorzettingsvermogen en internationale blik.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="sterktes">
+  <div class="section-inner">
+    <div class="section-label">Competenties</div>
+    <h2 class="section-title">Talen &amp; Sterktes</h2>
+    <div class="section-divider"></div>
+    <div class="skills-grid">
+      <div class="skills-block">
+        <h3>&#127757; Talen</h3>
+        <div class="lang-item">
+          <span class="lang-name">Nederlands</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">Papiaments</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">Engels</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" style="width:90%"></div></div>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">Spaans</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" style="width:55%"></div></div>
+        </div>
+      </div>
+      <div class="skills-block">
+        <h3>&#9889; Sterktes</h3>
+        <div class="strength-tags">
+          <span class="strength-tag">Verbanden leggen</span>
+          <span class="strength-tag">Communicatie</span>
+          <span class="strength-tag">Stakeholdermanagement</span>
+          <span class="strength-tag">Analytisch denken</span>
+          <span class="strength-tag">Oog voor detail</span>
+          <span class="strength-tag">Leergierig</span>
+          <span class="strength-tag">Go-getter</span>
+          <span class="strength-tag">Lokale marktkennis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVER MIJ -->
+<section id="over">
+  <canvas class="starfield" id="stars-over"></canvas>
+  <div class="section-inner">
+    <div class="section-label">Persoonlijk</div>
+    <h2 class="section-title light">Over mij</h2>
+    <div class="section-divider"></div>
+    <div class="about-grid">
+      <div>
+        <p class="about-highlight">"Opgegroeid op Cura&ccedil;ao, thuis in Rotterdam. Vier talen, &eacute;&eacute;n doel: impact maken."</p>
+        <div class="about-text">
+          <p>Mijn commerci&euml;le reis begon op straat &mdash; letterlijk. Als sales agent leerde ik wat het betekent om vanuit overtuiging mensen te bewegen. Wat was goed? Wat kon beter? Die vragen drijven mij nog elke dag.</p>
+          <p>Ik ben iemand die eerlijk is over zijn traject: mijn CV is compact, maar elke stap was bewust. Van sales agent naar team captain, van logistiek naar consultancy &mdash; ik zoek altijd de volgende uitdaging.</p>
+          <p>Bel me gerust, en als je me niet te pakken krijgt &mdash; ik bel je terug. &#9996;</p>
+        </div>
+      </div>
+      <div class="about-facts">
+        <div class="about-fact"><span class="about-fact-icon">&#127796;</span><span class="about-fact-text">Opgegroeid op Cura&ccedil;ao, verhuisd naar Nederland in 2019</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#128269;</span><span class="about-fact-text">Sterk in het leggen van verbanden die anderen missen</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#129309;</span><span class="about-fact-text">Gericht op toerisme en MKB op Cura&ccedil;ao</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#128161;</span><span class="about-fact-text">Bedrijfskundig onderlegd, commercieel ingesteld</span></div>
+        <div class="about-fact"><span class="about-fact-icon">&#128205;</span><span class="about-fact-text">Werkt locatieonafhankelijk vanuit Cura&ccedil;ao</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Bereikbaar</div>
+    <h2 class="section-title">Neem contact op</h2>
+    <div class="section-divider"></div>
+    <p style="color:var(--gray);margin-bottom:2rem;font-size:.95rem;">Altijd in voor een goed gesprek. Stuur me een bericht of bel direct.</p>
+    <div class="contact-cards">
+      <a href="tel:+31640784052" class="contact-card">
+        <div class="contact-icon">&#128222;</div>
+        <div class="contact-label">Telefoon</div>
+        <div class="contact-value">+31 6 40 78 40 52</div>
+      </a>
+      <a href="mailto:indigokooij@gmail.com" class="contact-card">
+        <div class="contact-icon">&#9993;</div>
+        <div class="contact-label">E-mail</div>
+        <div class="contact-value">indigokooij@gmail.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/indigoveen0640784052/" target="_blank" class="contact-card">
+        <div class="contact-icon">&#128188;</div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">Bekijk mijn profiel</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 <span>Indigo Veen</span> &middot; Cura&ccedil;ao
+</footer>
+
+<script>
+  /* ‚îÄ‚îÄ STARFIELD ‚îÄ‚îÄ */
+  function initStarfield(canvas) {
+    const ctx = canvas.getContext('2d');
+    let stars = [], connections = [], raf;
+
+    function buildStars() {
+      canvas.width  = canvas.offsetWidth  || canvas.parentElement.offsetWidth;
+      canvas.height = canvas.offsetHeight || canvas.parentElement.offsetHeight;
+      stars = [];
+      const density = 7000;
+      const count = Math.max(60, Math.floor(canvas.width * canvas.height / density));
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x:      Math.random() * canvas.width,
+          y:      Math.random() * canvas.height,
+          r:      Math.random() * 1.4 + 0.3,
+          phase:  Math.random() * Math.PI * 2,
+          speed:  Math.random() * 0.6 + 0.25,
+          bright: Math.random() < 0.18,
+          color:  Math.random() < 0.3
+                    ? 'rgba(180,210,255,' // cool blue-white
+                    : 'rgba(255,245,220,' // warm white-yellow
+        });
+      }
+      // Constellation lines: connect stars within 140px (max 2 links per star)
+      connections = [];
+      const links = new Array(stars.length).fill(0);
+      const maxD = 140, maxLinks = 2;
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          if (links[i] >= maxLinks || links[j] >= maxLinks) continue;
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if (d < maxD) {
+            connections.push([i, j, d / maxD]);
+            links[i]++; links[j]++;
+          }
+        }
+      }
+    }
+
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      t += 0.016;
+
+      // Constellation lines
+      for (const [i, j, norm] of connections) {
+        const twA = (Math.sin(t * stars[i].speed + stars[i].phase) + 1) / 2;
+        const twB = (Math.sin(t * stars[j].speed + stars[j].phase) + 1) / 2;
+        const alpha = ((twA + twB) / 2) * 0.09 * (1 - norm);
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = 'rgba(160,200,255,1)';
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(stars[i].x, stars[i].y);
+        ctx.lineTo(stars[j].x, stars[j].y);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Stars
+      for (const s of stars) {
+        const tw = (Math.sin(t * s.speed + s.phase) + 1) / 2; // 0‚Äì1
+        const opacity = 0.25 + tw * 0.75;
+
+        ctx.save();
+        ctx.globalAlpha = opacity;
+
+        if (s.bright) {
+          // Glow halo
+          const glowR = s.r * 5 + tw * s.r * 4;
+          const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowR);
+          grd.addColorStop(0, s.color + '0.55)');
+          grd.addColorStop(1, s.color + '0)');
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, glowR, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Sparkle cross (4-ray) when near peak brightness
+          if (tw > 0.55) {
+            const frac = (tw - 0.55) / 0.45;
+            const ray  = frac * s.r * 10;
+            ctx.globalAlpha = opacity * frac * 0.7;
+            ctx.strokeStyle = s.color + '1)';
+            ctx.lineWidth = 0.7;
+            ctx.beginPath();
+            ctx.moveTo(s.x - ray, s.y); ctx.lineTo(s.x + ray, s.y);
+            ctx.moveTo(s.x, s.y - ray); ctx.lineTo(s.x, s.y + ray);
+            // Diagonal rays (shorter)
+            const d = ray * 0.5;
+            ctx.moveTo(s.x - d, s.y - d); ctx.lineTo(s.x + d, s.y + d);
+            ctx.moveTo(s.x + d, s.y - d); ctx.lineTo(s.x - d, s.y + d);
+            ctx.stroke();
+            ctx.globalAlpha = opacity;
+          }
+        }
+
+        // Star core
+        ctx.fillStyle = s.color + '1)';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * (s.bright ? 1 + tw * 0.5 : 1), 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    buildStars();
+    draw();
+
+    // Rebuild on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { cancelAnimationFrame(raf); buildStars(); draw(); }, 200);
+    });
+  }
+
+  // Boot all starfield canvases once DOM ready
+  document.querySelectorAll('canvas.starfield').forEach(initStarfield);
+
+  /* -- Scroll-reveal with IntersectionObserver -- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  // Auto-reveal: section headings, cards, banners, edu-cards, about blocks
+  document.querySelectorAll(
+    '.section-label, .section-title, .section-divider, ' +
+    '.prop-intro, .prop-card, .ncnp-banner, ' +
+    '.edu-card, .skills-block, ' +
+    '.about-highlight, .about-text, .about-fact, ' +
+    '.contact-card, footer'
+  ).forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+
+  // Timeline items with staggered delay
+  document.querySelectorAll('.tl-item').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.12) + 's';
+    observer.observe(el);
+  });
+
+  /* -- Language bar animation -- */
+  const langBars = document.querySelectorAll('.lang-bar');
+  // Store target widths and reset to 0
+  langBars.forEach(bar => {
+    bar.dataset.targetWidth = bar.style.width;
+    bar.style.width = '0';
+  });
+
+  const langObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        langBars.forEach(bar => {
+          bar.style.width = bar.dataset.targetWidth;
+        });
+        langObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  const skillsSection = document.querySelector('#sterktes');
+  if (skillsSection) langObserver.observe(skillsSection);
+
+  /* -- Stats counter animation -- */
+  function animateCounter(el, target, suffix, duration) {
+    let start = 0;
+    const isPlus = suffix.includes('+');
+    const numTarget = parseInt(target);
+    const step = duration / numTarget;
+    const timer = setInterval(() => {
+      start++;
+      el.textContent = start + suffix;
+      if (start >= numTarget) {
+        el.textContent = target + (isPlus ? '' : suffix); // keep original text
+        clearInterval(timer);
+      }
+    }, step);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat-num').forEach(el => {
+          const raw = el.textContent.trim();
+          const num = parseInt(raw);
+          const suffix = raw.replace(/[0-9]/g, '');
+          if (!isNaN(num) && num > 0) {
+            el.textContent = '0' + suffix;
+            setTimeout(() => animateCounter(el, num, suffix, 700), 200);
+          }
+        });
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statsObserver.observe(heroStats);
+
+  /* -- Prop cards stagger -- */
+  document.querySelectorAll('.prop-cards').forEach(wrapper => {
+    wrapper.classList.add('stagger');
+  });
+  document.querySelectorAll('.contact-cards').forEach(wrapper => {
+    wrapper.classList.add('stagger');
+  });
+  document.querySelectorAll('.edu-cards').forEach(wrapper => {
+    wrapper.classList.add('stagger');
+  });
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indigo Veen Curriculum Vitae</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:    #1A1A2E;
+      --turq:    #007B8A;
+      --turq-lt: #0097AA;
+      --accent:  #E8A838;
+      --light:   #F5F5F0;
+      --gray:    #666;
+      --white:   #ffffff;
+      --card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* -- NAV -- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.25);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.3rem;
+      letter-spacing: .5px;
+    }
+    .nav-logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul li a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      letter-spacing: .3px;
+      transition: color .2s;
+    }
+    nav ul li a:hover { color: var(--accent); }
+
     /* -- HERO -- */
     .hero {
       min-height: 100vh;
