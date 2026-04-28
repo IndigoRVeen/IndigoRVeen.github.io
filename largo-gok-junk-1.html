@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Largo gok junk 1</title>
+  <style>
+    :root {
+      --bg:#060612;
+      --panel:#0e1323;
+      --panel-strong:#101a34;
+      --text:#f5f9ff;
+      --muted:#8aa3c7;
+      --accent:#47f5ff;
+      --accent-strong:#7cffca;
+      --win:#ffd24d;
+      --danger:#ff5a7c;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;height:100%;background:radial-gradient(circle at top,#10203c 0%,#05070d 45%,#02030a 100%);color:var(--text)}
+    body{display:flex;align-items:center;justify-content:center;padding:18px}
+    .app{width:100%;max-width:420px;background:rgba(8,13,28,.92);border:1px solid rgba(71,245,255,.16);border-radius:26px;overflow:hidden;box-shadow:0 18px 80px rgba(0,0,0,.35)}
+    header{padding:22px 20px 16px}
+    .headline{font-size:1.35rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin:0 0 6px;line-height:1.1}
+    .subline{font-size:.85rem;color:var(--muted);margin:0}
+    .balance-card{margin:18px 20px 0;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;display:flex;align-items:center;justify-content:space-between}
+    .balance-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em}
+    .balance-value{font-size:1.55rem;font-weight:700;color:#fff;letter-spacing:.04em}
+    .slot-board{padding:20px}
+    .reels{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    .reel{background:var(--panel-strong);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;min-height:124px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+    .reel::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%,transparent 70%,rgba(255,255,255,.08));pointer-events:none}
+    .symbol{font-size:2.15rem;line-height:1;z-index:1}
+    .symbol.small{font-size:1.1rem;letter-spacing:.2em;color:var(--muted)}
+    .controls{padding:18px 20px 24px;display:grid;gap:14px}
+    .big-button, .action-row button{width:100%;border:none;border-radius:16px;font-size:1rem;font-weight:700;padding:16px 18px;color:#040710;cursor:pointer;transition:transform .14s ease,box-shadow .14s ease}
+    .big-button{background:linear-gradient(135deg,#47f5ff,#71ffb9);box-shadow:0 18px 36px rgba(71,245,255,.18)}
+    .big-button:active{transform:scale(.98);}
+    .action-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .action-row button{background:rgba(255,255,255,.07);color:var(--text)}
+    .action-row button.active{background:rgba(71,245,255,.16);color:var(--accent-strong)}
+    .message{min-height:42px;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-size:.92rem;line-height:1.4}
+    .message.win{color:var(--win)}
+    .message.loss{color:var(--danger)}
+    .footer{padding:0 20px 22px;font-size:.77rem;color:rgba(138,163,199,.75);text-align:center;line-height:1.5}
+    @media (max-width:360px){.headline{font-size:1.2rem}.reels{gap:10px}.reel{padding:12px;min-height:110px}}
+  </style>
+</head>
+<body>
+  <div class="app" role="application">
+    <header>
+      <p class="headline">Largo gok junk 1</p>
+      <p class="subline">Swipe, spin & win — mobile slot machine</p>
+    </header>
+    <div class="balance-card">
+      <div>
+        <div class="balance-label">Credits</div>
+        <div class="balance-value" id="balance">500</div>
+      </div>
+      <div style="text-align:right">
+        <div class="balance-label">Bet</div>
+        <div class="balance-value" id="bet">25</div>
+      </div>
+    </div>
+    <section class="slot-board" aria-label="Slot reels">
+      <div class="reels">
+        <div class="reel"><div class="symbol" id="reel1">7</div></div>
+        <div class="reel"><div class="symbol" id="reel2">♣</div></div>
+        <div class="reel"><div class="symbol" id="reel3">🍒</div></div>
+      </div>
+    </section>
+    <div class="controls">
+      <button class="big-button" id="spinButton" type="button">Spin</button>
+      <div class="action-row">
+        <button type="button" id="minusBet">-</button>
+        <button type="button" id="plusBet">+</button>
+      </div>
+      <div class="message" id="message">Tap Spin to play. Win matching symbols to earn credits.</div>
+    </div>
+    <div class="footer">Designed for Android mobile in a responsive HTML layout. No install required.</div>
+  </div>
+
+  <script>
+    const balanceEl = document.getElementById('balance');
+    const betEl = document.getElementById('bet');
+    const messageEl = document.getElementById('message');
+    const reelEls = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
+    const spinButton = document.getElementById('spinButton');
+    const minusBet = document.getElementById('minusBet');
+    const plusBet = document.getElementById('plusBet');
+
+    const symbols = ['🍒','🍋','🔔','⭐','💎','7','♣'];
+    let balance = 500;
+    let bet = 25;
+    let spinning = false;
+
+    function updateUI() {
+      balanceEl.textContent = balance;
+      betEl.textContent = bet;
+      minusBet.disabled = bet <= 5;
+      plusBet.disabled = bet >= balance;
+    }
+
+    function randomSymbol() {
+      return symbols[Math.floor(Math.random()*symbols.length)];
+    }
+
+    function spinReel(el, duration, delay) {
+      return new Promise(resolve => {
+        const steps = Math.floor(duration / 80);
+        let count = 0;
+        const interval = setInterval(() => {
+          el.textContent = randomSymbol();
+          count += 1;
+          if (count >= steps) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 80);
+      });
+    }
+
+    function evaluate(result) {
+      const [a,b,c] = result;
+      if (a === b && b === c) {
+        return { outcome:'jackpot', multiplier:8, text:'Jackpot! Triple match!'};
+      }
+      if (a === b || b === c || a === c) {
+        return { outcome:'win', multiplier:3, text:'Nice! Two symbols match.' };
+      }
+      return { outcome:'lose', multiplier:0, text:'No match. Try again.' };
+    }
+
+    async function playSpin() {
+      if (spinning) return;
+      if (bet > balance) {
+        messageEl.textContent = 'Not enough credits. Lower your bet.';
+        messageEl.className = 'message loss';
+        return;
+      }
+      spinning = true;
+      spinButton.textContent = 'Spinning…';
+      messageEl.textContent = 'Good luck!';
+      messageEl.className = 'message';
+      balance -= bet;
+      updateUI();
+
+      const results = [];
+      for (let i = 0; i < reelEls.length; i += 1) {
+        await spinReel(reelEls[i], 700 + i * 180);
+        results.push(reelEls[i].textContent);
+      }
+
+      const score = evaluate(results);
+      if (score.outcome !== 'lose') {
+        const winAmount = bet * score.multiplier;
+        balance += winAmount;
+        messageEl.textContent = `${score.text} You won ${winAmount} credits.`;
+        messageEl.className = 'message win';
+      } else {
+        messageEl.textContent = score.text;
+        messageEl.className = 'message loss';
+      }
+
+      if (balance <= 0) {
+        balance = 0;
+        messageEl.textContent = 'Game over. Refresh to play again.';
+      }
+      updateUI();
+      spinButton.textContent = 'Spin';
+      spinning = false;
+    }
+
+    minusBet.addEventListener('click', () => {
+      bet = Math.max(5, bet - 5);
+      updateUI();
+    });
+
+    plusBet.addEventListener('click', () => {
+      bet = Math.min(balance, bet + 5);
+      updateUI();
+    });
+
+    spinButton.addEventListener('click', playSpin);
+
+    updateUI();
+  </script>
+</body>
+</html>

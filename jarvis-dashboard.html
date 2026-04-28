@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J.A.R.V.I.S. — Tactical Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0,212,255,0.35);
+  --blue: #0057ff;
+  --bg: #020b14;
+  --panel: rgba(0,18,38,0.85);
+  --border: rgba(0,212,255,0.22);
+  --glow: 0 0 22px rgba(0,212,255,0.28);
+  --text: #ddf3ff;
+  --muted: rgba(0,212,255,0.45);
+  --accent: #ff6b2b;
+  --green: #00ff99;
+  --red: #ff2255;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;overflow-x:hidden}
+
+/* hex grid bg */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2l28 16v32L30 66 2 50V18L30 2zM2 50l28 16 28-16' fill='none' stroke='rgba(0,180,220,0.055)' stroke-width='1'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+/* scanlines */
+body::after{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);
+  pointer-events:none;z-index:1;
+}
+
+.wrap{position:relative;z-index:2;padding:18px;max-width:1600px;margin:0 auto}
+
+/* ── HEADER ── */
+.hdr{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px;margin-bottom:18px;
+  background:var(--panel);border:1px solid var(--border);border-radius:3px;
+  box-shadow:var(--glow);position:relative;overflow:hidden;
+}
+.hdr::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  animation:sweepline 4s linear infinite;
+}
+@keyframes sweepline{to{left:200%}}
+
+.logo{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;letter-spacing:10px;
+  color:var(--cyan);text-shadow:0 0 22px rgba(0,212,255,0.65)}
+.logo-sub{font-size:9px;letter-spacing:5px;color:var(--muted);margin-top:3px}
+
+.hdr-mid{display:flex;gap:24px}
+.status-item{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);animation:pulse 2s ease-in-out infinite}
+.dot.warn{background:var(--accent);box-shadow:0 0 7px var(--accent)}
+.dot.err{background:var(--red);box-shadow:0 0 7px var(--red);animation:pulse .5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+.clock-box{text-align:right}
+.clock{font-family:'Orbitron',sans-serif;font-size:24px;color:var(--cyan);text-shadow:0 0 12px rgba(0,212,255,.5)}
+.dateline{font-size:10px;letter-spacing:3px;color:var(--muted);margin-top:2px}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
+
+/* ── PANEL ── */
+.panel{
+  background:var(--panel);border:1px solid var(--border);border-radius:3px;
+  padding:18px;box-shadow:var(--glow);position:relative;overflow:hidden;
+  min-height:420px;display:flex;flex-direction:column;
+}
+.panel::before,.panel::after{content:'';position:absolute;background:var(--cyan)}
+.panel::before{top:0;left:0;width:36px;height:2px}
+.panel::after{top:0;left:0;width:2px;height:36px}
+.corner-br,.corner-bl{position:absolute;width:2px;height:24px;background:var(--cyan-dim)}
+.corner-brh,.corner-blh{position:absolute;width:24px;height:2px;background:var(--cyan-dim)}
+.corner-br{bottom:0;right:0}.corner-brh{bottom:0;right:0}
+.corner-bl{bottom:0;left:0}.corner-blh{bottom:0;left:0}
+
+.panel-title{
+  font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:4px;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:14px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.live-badge{
+  font-size:8px;letter-spacing:2px;padding:2px 7px;border-radius:2px;
+  background:rgba(0,255,153,.08);border:1px solid var(--green);color:var(--green);
+  animation:pulse 1.5s ease-in-out infinite;
+}
+
+/* ── DATA ROWS ── */
+.drow{display:flex;justify-content:space-between;align-items:center;
+  padding:5px 0;border-bottom:1px solid rgba(0,212,255,.08);font-size:11px}
+.dlabel{color:var(--muted);letter-spacing:1px;font-size:10px}
+.dval{color:var(--cyan);font-family:'Orbitron',sans-serif;font-size:11px}
+.dval.hi{color:var(--accent);text-shadow:0 0 10px rgba(255,107,43,.5)}
+.dval.sm{font-size:10px;font-family:'Share Tech Mono',monospace}
+
+/* ── RADAR ── */
+.radar-wrap{display:flex;justify-content:center;margin-bottom:16px}
+#radarCanvas{border-radius:50%;box-shadow:0 0 28px rgba(0,212,255,.15),inset 0 0 28px rgba(0,0,0,.6)}
+
+/* ── ISS MAP ── */
+.map-wrap{border:1px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:12px;flex:1}
+#issMap{display:block;width:100%;height:100%}
+
+/* ── ISS COORDS ── */
+.coord-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.coord-box{background:rgba(0,80,160,.12);border:1px solid rgba(0,212,255,.15);padding:8px;border-radius:2px;text-align:center}
+.coord-lbl{display:block;font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:3px}
+.coord-val{font-family:'Orbitron',sans-serif;font-size:12px;color:var(--cyan)}
+
+/* ── OIL ── */
+.oil-center{text-align:center;padding:18px 0 12px}
+.oil-price{font-family:'Orbitron',sans-serif;font-size:44px;font-weight:700;color:var(--cyan);
+  text-shadow:0 0 28px rgba(0,212,255,.45);line-height:1}
+.oil-unit{font-size:10px;letter-spacing:3px;color:var(--muted);margin-top:5px}
+.oil-chg{font-family:'Orbitron',sans-serif;font-size:15px;margin-top:8px}
+.oil-chg.up{color:var(--green)}.oil-chg.dn{color:var(--red)}
+#oilChart{width:100%;margin-top:10px;display:block}
+
+.loading{color:var(--muted);font-size:11px;letter-spacing:2px;text-align:center;
+  padding:20px;animation:pulse 1s ease-in-out infinite}
+.nodata{color:rgba(255,107,43,.75);font-size:10px;letter-spacing:2px;text-align:center;padding:10px}
+
+/* aircraft list */
+.ac-section{border-top:1px solid var(--border);padding-top:12px;margin-top:6px}
+.ac-section-title{font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div>
+      <div class="logo">J.A.R.V.I.S.</div>
+      <div class="logo-sub">TACTICAL OVERVIEW SYSTEM v2.4</div>
+    </div>
+    <div class="hdr-mid">
+      <div class="status-item"><div class="dot" id="ds-ac"></div><span id="ds-ac-lbl">AIRCRAFT</span></div>
+      <div class="status-item"><div class="dot" id="ds-iss"></div><span>ISS TRACKER</span></div>
+      <div class="status-item"><div class="dot" id="ds-oil"></div><span>MARKETS</span></div>
+    </div>
+    <div class="clock-box">
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="dateline" id="dateline">-- --- ----</div>
+    </div>
+  </header>
+
+  <!-- PANELS -->
+  <div class="grid">
+
+    <!-- ── AIRCRAFT ── -->
+    <div class="panel">
+      <div class="corner-br"></div><div class="corner-brh"></div>
+      <div class="corner-bl"></div><div class="corner-blh"></div>
+      <div class="panel-title"><span>✈ AERIAL SCAN</span><span class="live-badge">LIVE</span></div>
+      <div class="radar-wrap">
+        <canvas id="radarCanvas" width="216" height="216"></canvas>
+      </div>
+      <div id="ac-info"><div class="loading">ACQUIRING LOCATION…</div></div>
+    </div>
+
+    <!-- ── ISS ── -->
+    <div class="panel">
+      <div class="corner-br"></div><div class="corner-brh"></div>
+      <div class="corner-bl"></div><div class="corner-blh"></div>
+      <div class="panel-title"><span>🛰 ISS TRACKER</span><span class="live-badge">LIVE</span></div>
+      <div class="map-wrap"><canvas id="issMap" width="480" height="230"></canvas></div>
+      <div id="iss-info"><div class="loading">CONNECTING TO ISS…</div></div>
+    </div>
+
+    <!-- ── OIL ── -->
+    <div class="panel">
+      <div class="corner-br"></div><div class="corner-brh"></div>
+      <div class="corner-bl"></div><div class="corner-blh"></div>
+      <div class="panel-title"><span>◈ BRENT CRUDE OIL</span><span class="live-badge">LIVE</span></div>
+      <div id="oil-info"><div class="loading">FETCHING MARKET DATA…</div></div>
+      <canvas id="oilChart" width="400" height="110"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  CLOCK
+// ═══════════════════════════════════════════════════
+const DAYS   = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+function tick() {
+  const n = new Date();
+  document.getElementById('clock').textContent = n.toTimeString().slice(0,8);
+  document.getElementById('dateline').textContent =
+    `${DAYS[n.getDay()]}  ${String(n.getDate()).padStart(2,'0')} ${MONTHS[n.getMonth()]} ${n.getFullYear()}`;
+}
+setInterval(tick, 1000); tick();
+
+// ═══════════════════════════════════════════════════
+//  RADAR CANVAS
+// ═══════════════════════════════════════════════════
+const rCvs  = document.getElementById('radarCanvas');
+const rCtx  = rCvs.getContext('2d');
+const CX=108, CY=108, R=102;
+let sweepAngle = 0;
+let radarDots  = [];   // [{x,y,nearest,age}]
+
+function drawRadar() {
+  rCtx.clearRect(0,0,216,216);
+
+  // bg
+  rCtx.fillStyle = 'rgba(0,8,20,0.94)';
+  rCtx.beginPath(); rCtx.arc(CX,CY,R,0,Math.PI*2); rCtx.fill();
+
+  // rings
+  for (let i=1;i<=4;i++) {
+    rCtx.strokeStyle = `rgba(0,212,255,${0.07+i*0.03})`;
+    rCtx.lineWidth = .6;
+    rCtx.beginPath(); rCtx.arc(CX,CY,R/4*i,0,Math.PI*2); rCtx.stroke();
+  }
+  // cross
+  rCtx.strokeStyle = 'rgba(0,212,255,0.12)'; rCtx.lineWidth = .5;
+  for (let a=0;a<360;a+=45) {
+    const ar=a*Math.PI/180;
+    rCtx.beginPath(); rCtx.moveTo(CX,CY);
+    rCtx.lineTo(CX+Math.cos(ar)*R, CY+Math.sin(ar)*R); rCtx.stroke();
+  }
+  // sweep trail
+  for (let i=0;i<70;i++) {
+    const ta = sweepAngle - (i*Math.PI/55);
+    rCtx.strokeStyle = `rgba(0,212,255,${(1-i/70)*0.28})`;
+    rCtx.lineWidth = 3;
+    rCtx.beginPath(); rCtx.moveTo(CX,CY);
+    rCtx.lineTo(CX+Math.cos(ta)*R, CY+Math.sin(ta)*R); rCtx.stroke();
+  }
+  // sweep arm
+  rCtx.strokeStyle = 'rgba(0,212,255,0.85)'; rCtx.lineWidth = 1.2;
+  rCtx.beginPath(); rCtx.moveTo(CX,CY);
+  rCtx.lineTo(CX+Math.cos(sweepAngle)*R, CY+Math.sin(sweepAngle)*R); rCtx.stroke();
+
+  // dots
+  radarDots.forEach((d,i) => {
+    const fade = d.age>180 ? Math.max(0,1-(d.age-180)/160) : 1;
+    if (d.nearest) {
+      rCtx.fillStyle = `rgba(255,107,43,${fade})`;
+      rCtx.shadowBlur = 14; rCtx.shadowColor = 'rgba(255,107,43,.8)';
+      rCtx.beginPath(); rCtx.arc(d.x,d.y,5,0,Math.PI*2); rCtx.fill();
+      rCtx.shadowBlur = 0;
+    } else {
+      rCtx.fillStyle = `rgba(0,212,255,${fade*0.65})`;
+      rCtx.beginPath(); rCtx.arc(d.x,d.y,3,0,Math.PI*2); rCtx.fill();
+    }
+    d.age++;
+  });
+  radarDots = radarDots.filter(d=>d.age<340);
+
+  // center
+  rCtx.fillStyle = 'rgba(0,255,153,0.9)'; rCtx.shadowBlur=9; rCtx.shadowColor=var_green_css();
+  rCtx.beginPath(); rCtx.arc(CX,CY,3,0,Math.PI*2); rCtx.fill(); rCtx.shadowBlur=0;
+
+  // border
+  rCtx.strokeStyle = 'rgba(0,212,255,0.42)'; rCtx.lineWidth=1;
+  rCtx.beginPath(); rCtx.arc(CX,CY,R,0,Math.PI*2); rCtx.stroke();
+
+  // labels
+  rCtx.fillStyle='rgba(0,212,255,0.38)'; rCtx.font='9px Share Tech Mono';
+  rCtx.fillText('N',CX-4,CY-R+13); rCtx.fillText('S',CX-4,CY+R-5);
+  rCtx.fillText('E',CX+R-12,CY+4); rCtx.fillText('W',CX-R+4,CY+4);
+
+  sweepAngle += 0.018;
+  requestAnimationFrame(drawRadar);
+}
+function var_green_css(){return '#00ff99'}
+drawRadar();
+
+// ═══════════════════════════════════════════════════
+//  AIRCRAFT
+// ═══════════════════════════════════════════════════
+let userLat=null, userLon=null;
+
+const AIRLINES = {
+  AAL:'American Airlines',UAL:'United Airlines',DAL:'Delta Air Lines',
+  SWA:'Southwest Airlines',BAW:'British Airways',KLM:'KLM Royal Dutch',
+  DLH:'Lufthansa',AFR:'Air France',UAE:'Emirates',QTR:'Qatar Airways',
+  SIA:'Singapore Airlines',CPA:'Cathay Pacific',ANA:'All Nippon Airways',
+  JAL:'Japan Airlines',THY:'Turkish Airlines',ETD:'Etihad Airways',
+  RYR:'Ryanair',EZY:'easyJet',VLG:'Vueling',IBE:'Iberia',
+  TAP:'TAP Air Portugal',SAS:'Scandinavian Airlines',FIN:'Finnair',
+  LOT:'LOT Polish Airlines',CSN:'China Southern',CCA:'Air China',
+  CES:'China Eastern',THA:'Thai Airways',QFA:'Qantas',ANZ:'Air New Zealand',
+  WZZ:'Wizz Air',BEL:'Brussels Airlines',AUA:'Austrian Airlines',
+  SWR:'SWISS',ICE:'Icelandair',EIN:'Aer Lingus',ETH:'Ethiopian Airlines',
+  SVA:'Saudia',AIC:'Air India',TUI:'TUI Airways',TOM:'TUI fly',
+};
+function airlineFromCallsign(cs) {
+  if (!cs) return null;
+  return AIRLINES[cs.slice(0,3).toUpperCase()] || null;
+}
+
+function haverDist(la1,lo1,la2,lo2) {
+  const R=6371, dLa=(la2-la1)*Math.PI/180, dLo=(lo2-lo1)*Math.PI/180;
+  const a=Math.sin(dLa/2)**2 + Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dLo/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function acToRadar(acLa,acLo,maxKm) {
+  const dist = haverDist(userLat,userLon,acLa,acLo);
+  const frac = Math.min(dist/maxKm,1);
+  const bear = Math.atan2(acLo-userLon, acLa-userLat); // N=up
+  return {x:CX+Math.sin(bear)*frac*R*.9, y:CY-Math.cos(bear)*frac*R*.9, dist};
+}
+
+// Zet ruwe ADS-B array om naar genormaliseerde objecten
+function parseAdsbAc(arr) {
+  return (arr||[])
+    .filter(a => a.lat!=null && a.lon!=null && a.alt_baro !== 'ground')
+    .map(a => ({
+      icao:     a.hex,
+      callsign: (a.flight||'').trim(),
+      reg:      a.r    || null,
+      type:     a.t    || a.desc || null,
+      operator: a.ownOp|| null,
+      lat:      a.lat,
+      lon:      a.lon,
+      alt:      typeof a.alt_baro === 'number' ? Math.round(a.alt_baro * 0.3048) : null,
+      spd:      a.gs    ? Math.round(a.gs * 1.852) : null,
+      hdg:      a.track ? Math.round(a.track)       : null,
+      dist:     haverDist(userLat, userLon, a.lat, a.lon),
+    }))
+    .sort((a,b) => a.dist - b.dist);
+}
+
+async function tryFetch(url, proxy) {
+  const target = proxy
+    ? `https://corsproxy.io/?${encodeURIComponent(url)}`
+    : url;
+  const r = await fetch(target, {signal: AbortSignal.timeout(8000)});
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+async function fetchAircraft() {
+  if (!userLat||!userLon) return;
+  const NM = 200;   // zoekradius in nautische mijlen
+  const maxKm = NM * 1.852;
+
+  // Probeervolgorde: adsb.fi direct → adsb.fi via proxy → airplanes.live direct → airplanes.live via proxy
+  const sources = [
+    {url: `https://api.adsb.fi/v1/flights?lat=${userLat}&lon=${userLon}&dist=${NM}`,           proxy: false},
+    {url: `https://api.adsb.fi/v1/flights?lat=${userLat}&lon=${userLon}&dist=${NM}`,           proxy: true},
+    {url: `https://api.airplanes.live/v2/point/${userLat}/${userLon}/${NM}`,                   proxy: false},
+    {url: `https://api.airplanes.live/v2/point/${userLat}/${userLon}/${NM}`,                   proxy: true},
+  ];
+
+  let lastErr = '';
+  for (const {url, proxy} of sources) {
+    try {
+      const data = await tryFetch(url, proxy);
+      const aircraft = parseAdsbAc(data.ac);
+
+      radarDots = aircraft.slice(0,30).map((ac,i) => {
+        const p = acToRadar(ac.lat, ac.lon, maxKm);
+        return {x:p.x, y:p.y, nearest:i===0, age:0};
+      });
+
+      setStatus('ds-ac','');
+      renderAircraftInfo(aircraft[0], aircraft.length);
+      return; // succes — stop
+    } catch(e) {
+      lastErr = e.message;
+      console.warn(`Aircraft source failed (proxy=${proxy}):`, e);
+    }
+  }
+
+  // Alle bronnen gefaald
+  console.error('Aircraft: alle bronnen gefaald. Laatste fout:', lastErr);
+  setStatus('ds-ac','err');
+  document.getElementById('ac-info').innerHTML=`
+    <div class="nodata">⚠ ALLE BRONNEN FALEN</div>
+    <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.7">
+      Fout: ${lastErr}<br>
+      <span style="color:var(--cyan)">Open het bestand via een lokale<br>webserver (bijv. Live Server in VS Code)<br>voor beste CORS-compatibiliteit.</span>
+    </div>`;
+}
+
+function renderAircraftInfo(ac, total) {
+  if (!ac) {
+    document.getElementById('ac-info').innerHTML=`<div class="nodata">NO AIRCRAFT IN RANGE</div>`;
+    return;
+  }
+  const airline = ac.operator || airlineFromCallsign(ac.callsign) || '—';
+  const type    = ac.type || '—';
+  const reg     = ac.reg  || '—';
+  document.getElementById('ac-info').innerHTML = `
+    <div class="ac-section">
+      <div class="ac-section-title">── DICHTSTBIJZIJND VLIEGTUIG ──</div>
+      <div class="drow"><span class="dlabel">CALLSIGN</span><span class="dval hi">${ac.callsign||'N/A'}</span></div>
+      <div class="drow"><span class="dlabel">AIRLINE</span><span class="dval sm">${airline}</span></div>
+      <div class="drow"><span class="dlabel">TYPE</span><span class="dval">${type}</span></div>
+      <div class="drow"><span class="dlabel">REGISTRATIE</span><span class="dval">${reg}</span></div>
+      <div class="drow"><span class="dlabel">AFSTAND</span><span class="dval">${ac.dist.toFixed(1)} KM</span></div>
+      <div class="drow"><span class="dlabel">HOOGTE</span><span class="dval">${ac.alt?ac.alt+' M':'—'}</span></div>
+      <div class="drow"><span class="dlabel">SNELHEID</span><span class="dval">${ac.spd?ac.spd+' KM/H':'—'}</span></div>
+      <div class="drow"><span class="dlabel">KOERS</span><span class="dval">${ac.hdg!==null?ac.hdg+'°':'—'}</span></div>
+    </div>
+    <div style="margin-top:10px;font-size:10px;color:var(--muted)">${total} VLIEGTUIGEN IN BEREIK</div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════
+//  ISS
+// ═══════════════════════════════════════════════════
+let issTrail = [];
+
+async function fetchISS() {
+  try {
+    const r = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    issTrail.push({lat:d.latitude,lon:d.longitude});
+    if (issTrail.length>80) issTrail.shift();
+    drawISSMap(d);
+    renderISSInfo(d);
+    setStatus('ds-iss','');
+  } catch(e) {
+    console.error('ISS:',e);
+    setStatus('ds-iss','err');
+    document.getElementById('iss-info').innerHTML=`<div class="nodata">⚠ ISS SIGNAAL VERLOREN</div>`;
+  }
+}
+
+// simplified continent polygons [lat,lon]
+const CONTINENTS = [
+  // N-America
+  [[72,-140],[70,-95],[66,-82],[50,-55],[43,-52],[24,-80],[10,-83],[15,-91],[20,-105],[30,-118],[48,-125],[55,-130],[62,-140],[72,-140]],
+  // S-America
+  [[12,-72],[12,-62],[8,-50],[0,-50],[-5,-35],[-23,-43],[-34,-58],[-56,-68],[-55,-72],[-33,-70],[-16,-76],[0,-78],[12,-72]],
+  // Europe
+  [[36,-9],[43,-9],[44,-2],[50,2],[58,5],[58,11],[65,14],[70,28],[65,32],[55,26],[50,30],[42,28],[36,28],[36,-9]],
+  // Africa
+  [[37,-6],[37,10],[30,32],[12,42],[0,42],[-10,38],[-22,35],[-34,27],[-35,18],[-16,11],[0,8],[10,15],[22,36],[37,-6]],
+  // Asia (W)
+  [[70,28],[65,40],[55,40],[40,36],[28,50],[12,44],[12,52],[22,58],[22,64],[28,68],[20,72],[8,76],[0,100],[10,110],[22,114],[28,120],[40,120],[50,132],[62,142],[70,138],[72,100],[68,60],[70,28]],
+  // SE Asia / Indonesia rough
+  [[22,100],[12,100],[5,102],[-5,105],[-8,114],[-10,124],[-8,140],[0,132],[8,126],[18,120],[22,114],[22,100]],
+  // Australia
+  [[-14,130],[-14,142],[-24,152],[-38,146],[-38,130],[-26,114],[-14,125],[-14,130]],
+];
+
+function ll2px(lat,lon,W,H){
+  return [(lon+180)/360*W, (1-(lat+90)/180)*H];
+}
+
+function drawISSMap(d) {
+  const cvs = document.getElementById('issMap');
+  const ctx = cvs.getContext('2d');
+  const W=cvs.width, H=cvs.height;
+  ctx.clearRect(0,0,W,H);
+
+  // bg
+  ctx.fillStyle='rgba(0,6,18,0.96)'; ctx.fillRect(0,0,W,H);
+
+  // grid
+  ctx.strokeStyle='rgba(0,212,255,0.07)'; ctx.lineWidth=.5;
+  for(let lo=-180;lo<=180;lo+=30){
+    const x=(lo+180)/360*W;
+    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
+  }
+  for(let la=-90;la<=90;la+=30){
+    const y=(1-(la+90)/180)*H;
+    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
+  }
+
+  // continents
+  ctx.strokeStyle='rgba(0,212,255,0.28)'; ctx.lineWidth=.9;
+  CONTINENTS.forEach(pts=>{
+    ctx.beginPath();
+    pts.forEach(([la,lo],i)=>{
+      const [x,y]=ll2px(la,lo,W,H);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.closePath(); ctx.stroke();
+  });
+
+  // ISS trail
+  if(issTrail.length>1){
+    ctx.strokeStyle='rgba(0,212,255,0.35)'; ctx.lineWidth=1;
+    ctx.beginPath();
+    issTrail.forEach((p,i)=>{
+      const [x,y]=ll2px(p.lat,p.lon,W,H);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  }
+
+  // ISS dot
+  const [ix,iy]=ll2px(d.latitude,d.longitude,W,H);
+  const grad=ctx.createRadialGradient(ix,iy,0,ix,iy,22);
+  grad.addColorStop(0,'rgba(255,215,0,0.35)');grad.addColorStop(1,'transparent');
+  ctx.fillStyle=grad; ctx.beginPath(); ctx.arc(ix,iy,22,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#ffd700'; ctx.shadowBlur=16; ctx.shadowColor='#ffd700';
+  ctx.beginPath(); ctx.arc(ix,iy,5,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,215,0,0.9)'; ctx.font='9px Share Tech Mono';
+  ctx.fillText('ISS',ix+8,iy-8);
+}
+
+function renderISSInfo(d) {
+  const vis = d.visibility==='daylight'?'☀ DAGLICHT':'☾ NACHT';
+  document.getElementById('iss-info').innerHTML=`
+    <div class="coord-grid">
+      <div class="coord-box"><span class="coord-lbl">BREEDTE</span><span class="coord-val">${d.latitude.toFixed(3)}°</span></div>
+      <div class="coord-box"><span class="coord-lbl">LENGTE</span><span class="coord-val">${d.longitude.toFixed(3)}°</span></div>
+      <div class="coord-box"><span class="coord-lbl">HOOGTE</span><span class="coord-val">${d.altitude.toFixed(1)} KM</span></div>
+      <div class="coord-box"><span class="coord-lbl">SNELHEID</span><span class="coord-val">${Math.round(d.velocity).toLocaleString()} KM/H</span></div>
+    </div>
+    <div class="drow" style="margin-top:8px"><span class="dlabel">ZICHTBAARHEID</span><span class="dval">${vis}</span></div>
+    <div class="drow"><span class="dlabel">VOETAFDRUK</span><span class="dval">${Math.round(d.footprint).toLocaleString()} KM DIAMETER</span></div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════
+//  BRENT CRUDE OIL
+// ═══════════════════════════════════════════════════
+let oilHistory = [];
+
+async function fetchOil() {
+  // Yahoo Finance via public CORS proxy
+  const target = 'https://query1.finance.yahoo.com/v8/finance/chart/BZ=F?interval=5m&range=1d';
+  const proxied = 'https://corsproxy.io/?' + encodeURIComponent(target);
+  try {
+    const r = await fetch(proxied, {headers:{'Accept':'application/json'}});
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    const res  = data.chart?.result?.[0];
+    if (!res) throw new Error('no result');
+    const meta     = res.meta;
+    const price    = meta.regularMarketPrice;
+    const prevClose= meta.previousClose||meta.chartPreviousClose||price;
+    const change   = price-prevClose;
+    const changePct= (change/prevClose)*100;
+    const closes   = res.indicators?.quote?.[0]?.close||[];
+    oilHistory     = closes.filter(v=>v!=null).slice(-60);
+    renderOil(price,change,changePct);
+    drawOilChart();
+    setStatus('ds-oil','');
+  } catch(e) {
+    console.error('Oil primary:',e);
+    fetchOilFallback();
+  }
+}
+
+async function fetchOilFallback() {
+  // Fallback: Alpha Vantage commodity endpoint (no key needed for BZ symbol via proxy)
+  // Try a second proxy approach with direct Yahoo Finance URL
+  const target2 = 'https://query2.finance.yahoo.com/v8/finance/chart/BZ=F?interval=1d&range=5d';
+  const proxied2 = 'https://api.allorigins.win/get?url='+encodeURIComponent(target2);
+  try {
+    const r = await fetch(proxied2);
+    if (!r.ok) throw new Error(r.status);
+    const wrapper = await r.json();
+    const data = JSON.parse(wrapper.contents||'{}');
+    const res  = data.chart?.result?.[0];
+    if (!res) throw new Error('no result');
+    const closes = res.indicators?.quote?.[0]?.close||[];
+    const valid  = closes.filter(v=>v!=null);
+    if (valid.length<2) throw new Error('not enough data');
+    const price     = valid[valid.length-1];
+    const prevClose = valid[valid.length-2];
+    const change    = price-prevClose;
+    const changePct = (change/prevClose)*100;
+    oilHistory      = valid.slice(-30);
+    renderOil(price,change,changePct);
+    drawOilChart();
+    setStatus('ds-oil','');
+  } catch(e) {
+    console.error('Oil fallback:',e);
+    setStatus('ds-oil','err');
+    document.getElementById('oil-info').innerHTML=`
+      <div class="nodata">⚠ MARKTDATA NIET BESCHIKBAAR</div>
+      <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.7">
+        CORS-beperkingen blokkeren<br>Yahoo Finance vanuit de browser.<br>
+        <span style="color:var(--cyan)">Open via lokale server of voeg<br>een API-sleutel toe in de code.</span>
+      </div>`;
+  }
+}
+
+function renderOil(price,change,pct) {
+  const up = change>=0;
+  document.getElementById('oil-info').innerHTML=`
+    <div class="oil-center">
+      <div style="font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:8px">BRENT CRUDE — USD / VANZELF</div>
+      <div class="oil-price">$${price.toFixed(2)}</div>
+      <div class="oil-unit">USD PER VANZELF (BBL)</div>
+      <div class="oil-chg ${up?'up':'dn'}">${up?'▲':'▼'} ${Math.abs(change).toFixed(2)} (${pct>0?'+':''}${pct.toFixed(2)}%)</div>
+    </div>
+    <div class="drow"><span class="dlabel">SYMBOOL</span><span class="dval">BZ=F — ICE</span></div>
+    <div class="drow"><span class="dlabel">BIJGEWERKT</span><span class="dval">${new Date().toTimeString().slice(0,8)}</span></div>
+  `;
+}
+
+function drawOilChart() {
+  const cvs = document.getElementById('oilChart');
+  const ctx = cvs.getContext('2d');
+  const W=cvs.width, H=cvs.height;
+  if (oilHistory.length<2){ctx.clearRect(0,0,W,H);return;}
+
+  ctx.clearRect(0,0,W,H);
+  const mn = Math.min(...oilHistory)*.9995;
+  const mx = Math.max(...oilHistory)*1.0005;
+  const rng= mx-mn;
+  const tY = v=>H-((v-mn)/rng)*(H-14)-4;
+  const tX = i=>(i/(oilHistory.length-1))*W;
+
+  const up = oilHistory[oilHistory.length-1]>=oilHistory[0];
+  const lc = up?'rgba(0,255,153,1)':'rgba(255,34,85,1)';
+  const fc = up?'rgba(0,255,153,0.12)':'rgba(255,34,85,0.12)';
+
+  const grad=ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,fc); grad.addColorStop(1,'transparent');
+
+  ctx.beginPath();
+  ctx.moveTo(tX(0),H);
+  oilHistory.forEach((v,i)=>ctx.lineTo(tX(i),tY(v)));
+  ctx.lineTo(tX(oilHistory.length-1),H);
+  ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+
+  ctx.beginPath();
+  oilHistory.forEach((v,i)=>i===0?ctx.moveTo(tX(i),tY(v)):ctx.lineTo(tX(i),tY(v)));
+  ctx.strokeStyle=lc; ctx.lineWidth=1.5; ctx.stroke();
+
+  const lx=tX(oilHistory.length-1), ly=tY(oilHistory[oilHistory.length-1]);
+  ctx.fillStyle=lc; ctx.shadowBlur=8; ctx.shadowColor=lc;
+  ctx.beginPath(); ctx.arc(lx,ly,3,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+}
+
+// ═══════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════
+function setStatus(id, type) {
+  const el = document.getElementById(id);
+  el.className = 'dot'+(type?' '+type:'');
+}
+
+// ═══════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════
+function init() {
+  // Location → aircraft
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      pos=>{
+        userLat=pos.coords.latitude; userLon=pos.coords.longitude;
+        fetchAircraft();
+        setInterval(fetchAircraft,30000);
+      },
+      err=>{
+        console.warn('Geolocation denied:',err);
+        setStatus('ds-ac','err');
+        document.getElementById('ac-info').innerHTML=`
+          <div class="nodata">⚠ LOCATIETOEGANG GEWEIGERD</div>
+          <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.7">
+            Sta locatietoegang toe in<br>de browser om vliegtuigen te tracken.
+          </div>`;
+      }
+    );
+  } else {
+    setStatus('ds-ac','warn');
+    document.getElementById('ac-info').innerHTML=`<div class="nodata">GEOLOCATION NIET ONDERSTEUND</div>`;
+  }
+
+  // ISS — elke 5 seconden
+  fetchISS(); setInterval(fetchISS,5000);
+
+  // Oil — elke 60 seconden
+  fetchOil(); setInterval(fetchOil,60000);
+}
+init();
+</script>
+</body>
+</html>
