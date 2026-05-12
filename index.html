@@ -7,21 +7,21 @@
   <meta name="description" content="Curaçaose bedrijfskundige adviesdiensten voor toerisme en MKB. Helder, praktisch en resultaatgericht.">
   <style>
     :root {
-      --bg:#08101f;
-      --surface:#111a2e;
-      --surface-strong:#0f1626;
-      --text:#f7fbff;
-      --muted:#99a8c9;
-      --accent:#56e2ff;
-      --accent-strong:#6cf8d0;
-      --success:#ffd45a;
-      --danger:#ff6f7a;
-      --border:rgba(86,226,255,.14);
+      --bg:#051c28;
+      --surface:#0b2a38;
+      --surface-strong:#071e2c;
+      --text:#f7fbf5;
+      --muted:#7fbcce;
+      --accent:#0dd4c8;
+      --accent-strong:#ffb347;
+      --success:#ff7b4b;
+      --danger:#ff4e6a;
+      --border:rgba(13,212,200,.16);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,sans-serif;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;background:radial-gradient(circle at top,#16254a 0%,#08101f 35%,#03070f 100%);color:var(--text);min-height:100vh;}
+    body{margin:0;background:radial-gradient(ellipse 80% 45% at 15% 0%,rgba(220,95,50,.28) 0%,transparent 60%),radial-gradient(ellipse 65% 55% at 85% 100%,rgba(0,180,200,.22) 0%,transparent 60%),radial-gradient(circle at 50% 50%,#0d2d3e 0%,#061a26 55%,#030f18 100%);color:var(--text);min-height:100vh;}
     a{color:inherit;text-decoration:none}
     button{font:inherit}
     .page{max-width:1080px;margin:0 auto;padding:20px 18px 40px}
@@ -29,9 +29,9 @@
     .brand{font-weight:800;letter-spacing:.22em;text-transform:uppercase;font-size:.95rem;color:var(--accent);}
     .nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.92rem;color:var(--muted)}
     .nav a:hover{color:var(--text)}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:40px 0}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:40px 0;position:relative}
     .hero-copy{max-width:560px}
-    .eyebrow{display:inline-flex;padding:.55rem 1rem;border:1px solid var(--border);border-radius:999px;color:var(--accent);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+    .eyebrow{display:inline-flex;padding:.55rem 1rem;border:1px solid var(--border);border-radius:999px;color:var(--accent);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;position:relative;overflow:hidden}
     h1{font-size:3rem;line-height:1.03;margin:0;letter-spacing:-.04em;}
     p.lead{font-size:1.05rem;line-height:1.9;color:var(--muted);margin:24px 0 0;max-width:620px}
     .hero-buttons{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
@@ -68,6 +68,27 @@
     .exp-company{color:var(--muted);font-size:.95rem}
     .exp-desc{color:var(--muted);margin-top:8px;line-height:1.8}
     .footer{padding:22px 0 0;color:var(--muted);font-size:.9rem;text-align:center}
+    .bridge-anim{width:100%;border-radius:18px;display:block;margin-bottom:18px}
+    /* ── Keyframes ── */
+    @keyframes fade-up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes shimmer-sweep{from{transform:translateX(-120%)}to{transform:translateX(220%)}}
+    @keyframes reveal-up{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes wave-drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* ── Hero load-in ── */
+    .eyebrow   {animation:fade-up .65s cubic-bezier(.25,.46,.45,.94) both .10s}
+    .eyebrow::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 20%,rgba(255,255,255,.22) 50%,transparent 80%);animation:shimmer-sweep 3.8s ease-in-out 1.8s infinite;pointer-events:none}
+    h1         {animation:fade-up .65s cubic-bezier(.25,.46,.45,.94) both .28s}
+    p.lead     {animation:fade-up .65s cubic-bezier(.25,.46,.45,.94) both .44s}
+    .hero-buttons{animation:fade-up .65s cubic-bezier(.25,.46,.45,.94) both .58s}
+    .hero-visual{animation:fade-up .65s cubic-bezier(.25,.46,.45,.94) both .36s}
+    /* ── Achtergrondgolven ── */
+    .wave-layer{position:absolute;bottom:0;left:0;right:0;height:88px;pointer-events:none;overflow:hidden;z-index:0;opacity:.5}
+    .wave-layer svg{width:200%;display:block;animation:wave-drift 14s linear infinite}
+    .hero-copy,.hero-visual{position:relative;z-index:1}
+    /* ── Scroll reveal ── */
+    @supports(animation-timeline:view()){
+      .panel,.box{opacity:0;transform:translateY(36px);animation:reveal-up linear both;animation-timeline:view();animation-range:entry 0% entry 25%}
+    }
     @media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}.cards{grid-template-columns:1fr}.split{grid-template-columns:1fr}}
     @media(max-width:640px){.page{padding:16px 14px 36px}.hero{padding-top:14px}.h1{font-size:2.4rem}.topbar{flex-direction:column;align-items:flex-start;gap:14px}.nav{gap:12px;font-size:.88rem}}
   </style>
@@ -85,6 +106,12 @@
     </header>
 
     <section class="hero">
+      <div class="wave-layer" aria-hidden="true">
+        <svg viewBox="0 0 1200 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,44 C150,14 300,72 450,44 C600,16 750,72 900,44 C1050,16 1150,62 1200,44 L1200,88 L0,88 Z" fill="rgba(13,212,200,0.07)"/>
+          <path d="M0,58 C120,82 260,28 400,58 C540,82 680,28 840,58 C1000,82 1100,38 1200,58 L1200,88 L0,88 Z" fill="rgba(255,179,71,0.045)"/>
+        </svg>
+      </div>
       <div class="hero-copy">
         <span class="eyebrow">Adviseur voor Curaçaose MKB</span>
         <h1>Verandering die menselijk aanvoelt, geworteld in begrip, vertrouwen en echte impact.</h1>
@@ -95,6 +122,64 @@
         </div>
       </div>
       <div class="hero-visual">
+        <svg class="bridge-anim" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animatie van de Emmabrug in Willemstad die open- en dichtgaat">
+          <title>Emmabrug animatie — bovenaanzicht</title>
+          <defs>
+            <linearGradient id="bay-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#073d50"/>
+              <stop offset="100%" stop-color="#041e2c"/>
+            </linearGradient>
+          </defs>
+          <!-- Sint Anna Bay -->
+          <rect width="340" height="160" fill="url(#bay-grad)"/>
+          <!-- Water sparkle dots -->
+          <circle cx="130" cy="45"  r="1.2" fill="#0dd4c8" opacity="0"><animate attributeName="opacity" values="0;0.55;0" dur="2.8s" repeatCount="indefinite" begin="0s"/></circle>
+          <circle cx="210" cy="72"  r="1"   fill="#0dd4c8" opacity="0"><animate attributeName="opacity" values="0;0.45;0" dur="3.3s" repeatCount="indefinite" begin="1.1s"/></circle>
+          <circle cx="168" cy="118" r="1.2" fill="#0dd4c8" opacity="0"><animate attributeName="opacity" values="0;0.55;0" dur="2.6s" repeatCount="indefinite" begin="0.6s"/></circle>
+          <circle cx="145" cy="132" r="1"   fill="#0dd4c8" opacity="0"><animate attributeName="opacity" values="0;0.4;0"  dur="3.8s" repeatCount="indefinite" begin="1.9s"/></circle>
+          <circle cx="195" cy="98"  r="1"   fill="#0dd4c8" opacity="0"><animate attributeName="opacity" values="0;0.5;0"  dur="3.1s" repeatCount="indefinite" begin="0.4s"/></circle>
+          <!-- Otrobanda (linker oever) -->
+          <rect x="0" y="0" width="65" height="160" fill="#091c28"/>
+          <rect x="4"  y="26" width="13" height="134" fill="#003082" rx="2"/>
+          <rect x="19" y="22" width="13" height="138" fill="#FFD100" rx="2"/>
+          <rect x="34" y="25" width="13" height="135" fill="#ffffff" rx="2"/>
+          <rect x="49" y="21" width="13" height="139" fill="#003082" rx="2"/>
+          <rect x="63" y="0"  width="3"  height="160" fill="rgba(0,0,0,0.3)"/>
+          <!-- Punda (rechter oever) -->
+          <rect x="275" y="0" width="65" height="160" fill="#091c28"/>
+          <rect x="277" y="23" width="13" height="137" fill="#FFD100" rx="2"/>
+          <rect x="292" y="25" width="13" height="135" fill="#ffffff" rx="2"/>
+          <rect x="307" y="21" width="13" height="139" fill="#003082" rx="2"/>
+          <rect x="322" y="26" width="13" height="134" fill="#FFD100" rx="2"/>
+          <rect x="274" y="0"  width="3"  height="160" fill="rgba(0,0,0,0.3)"/>
+          <!-- Emmabrug — scharnier aan Punda-zijde (274, 80) -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate"
+              values="0 274 80; 0 274 80; 80 274 80; 80 274 80; 0 274 80"
+              keyTimes="0; 0.20; 0.44; 0.72; 1"
+              dur="10s" repeatCount="indefinite"
+              calcMode="spline"
+              keySplines="0.35 0 0.65 1; 0.35 0 0.65 1; 0.35 0 0.65 1; 0.35 0 0.65 1"/>
+            <rect x="66" y="74" width="208" height="12" fill="#a07838" rx="2"/>
+            <line x1="66" y1="74.5" x2="274" y2="74.5" stroke="#c09050" stroke-width="1.5" opacity="0.8"/>
+            <line x1="66" y1="85.5" x2="274" y2="85.5" stroke="#c09050" stroke-width="1.5" opacity="0.8"/>
+            <line x1="106" y1="74" x2="106" y2="86" stroke="#7a5828" stroke-width="1.5"/>
+            <line x1="146" y1="74" x2="146" y2="86" stroke="#7a5828" stroke-width="1.5"/>
+            <line x1="186" y1="74" x2="186" y2="86" stroke="#7a5828" stroke-width="1.5"/>
+            <line x1="226" y1="74" x2="226" y2="86" stroke="#7a5828" stroke-width="1.5"/>
+          </g>
+          <!-- Scharnierpunt -->
+          <circle cx="274" cy="80" r="4.5" fill="#ffb347" opacity="0.95"/>
+          <!-- Boot (vaart door als brug open is) -->
+          <ellipse cx="170" cy="-22" rx="7" ry="16" fill="#e8d8a0">
+            <animate attributeName="cy" values="-22; -22; 182; 182; -22" keyTimes="0; 0.44; 0.66; 0.74; 1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1; 0.35 0 0.65 1; 0 0 1 1; 0 0 1 1"/>
+          </ellipse>
+          <circle cx="170" cy="-22" r="3" fill="#8a6020">
+            <animate attributeName="cy" values="-22; -22; 182; 182; -22" keyTimes="0; 0.44; 0.66; 0.74; 1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1; 0.35 0 0.65 1; 0 0 1 1; 0 0 1 1"/>
+          </circle>
+          <!-- Label -->
+          <text x="170" y="154" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.28)" font-family="Inter,sans-serif" letter-spacing="0.14em">EMMABRUG · WILLEMSTAD</text>
+        </svg>
         <div class="hero-card">
           <div class="stat"><strong>4 talen</strong><span>Jij bereikt lokale én internationale klanten.</span></div>
           <div class="stat"><strong>No cure, no pay</strong><span>Ik werk alleen als ik echt waarde kan leveren.</span></div>
